@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,6 +21,8 @@ public class CashTransferActivity extends Activity {
 	public String grpName = "";
 	Spinner spinner1 = null;
 	Spinner spinner2 = null;
+	
+	public final static String GROUP_NAME = "";
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -186,7 +187,7 @@ public class CashTransferActivity extends Activity {
         }
     }
     
-    public void trasferDone() {
+    public void transferDone(View v) {
     	RadioGroup g = (RadioGroup) findViewById(R.id.radioGroup1);
 		int selected = g.getCheckedRadioButtonId();
 		EditText b = (EditText) findViewById(selected);
@@ -207,8 +208,9 @@ public class CashTransferActivity extends Activity {
 		
     	//CashTransfer(grpName, fM, tM, a);
     	
-    	//Intent intent = new Intent(this, GroupSummaryActivity.class);
-    	//startActivity(intent);
+    	/*Intent intent = new Intent(this, GroupSummaryActivity.class);
+    	intent.putExtra(GROUP_NAME, grpName);
+    	startActivity(intent);*/
     }
     
 }
