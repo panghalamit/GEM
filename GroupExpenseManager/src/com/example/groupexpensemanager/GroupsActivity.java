@@ -30,9 +30,6 @@ public class GroupsActivity extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Intent intent=getIntent();
-        //s = intent.getStringExtra(NewGroupActivity.TEXT_SERVICES_MANAGER_SERVICE);
-        
         setContentView(R.layout.activity_groups);
         
         //getActionBar().setDisplayHomeAsUpEnabled(true);
