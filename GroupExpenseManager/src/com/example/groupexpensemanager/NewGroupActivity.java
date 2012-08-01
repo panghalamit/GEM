@@ -2,7 +2,6 @@ package com.example.groupexpensemanager;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -112,12 +111,9 @@ public class NewGroupActivity extends Activity {
     }
     
     public void done(View v) {
-    	Intent intent = new Intent(this, GroupsActivity.class);
-
     	EditText editText = (EditText) findViewById(R.id.grpText);
     	String message = editText.getText().toString();
-    	//intent.putExtra(MainActivity.GroupName, message);
-    	
+    	    	
     	String[] members = new String[numberMembers];
     	int k;
     	for (k=0; k<numberMembers; k++) {
@@ -135,11 +131,9 @@ public class NewGroupActivity extends Activity {
     			members[k] = editTextMember.getText().toString();
     		}
     	}
-    	//intent.putExtra(MainActivity.MEMBERS, members);
-    	
+    	   	
     	insertToDatabase(message, members);
-    	
-    	startActivity(intent);
+    	this.finish();	
     }
     
     public void insertToDatabase(String groupName, String[] members) {

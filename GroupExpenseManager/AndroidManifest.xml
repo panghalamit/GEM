@@ -48,6 +48,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.groupexpensemanager.GroupSummaryActivity" />
         </activity>
+        <activity
+            android:name=".AddEventActivity"
+            android:label="@string/title_activity_add_event" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.groupexpensemanager.GroupSummaryActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -189,10 +189,7 @@ public class CashTransferActivity extends Activity {
 		float a = Float.valueOf(editText.getText().toString());
 		
 		CashTransfer(grpName, fM, tM, a);
-			
-		Intent intent = new Intent(this, GroupSummaryActivity.class);
-		intent.putExtra(GROUP_NAME, grpName);
-		startActivity(intent);
+		this.finish();	
     }
     
 }
