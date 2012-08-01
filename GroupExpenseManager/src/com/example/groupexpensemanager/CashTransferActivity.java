@@ -1,27 +1,29 @@
 package com.example.groupexpensemanager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 @TargetApi(11)
 public class CashTransferActivity extends Activity {
 	public String grpName = "";
-	Spinner spinner1 = null;
-	Spinner spinner2 = null;
+	private Spinner spinner1, spinner2;
+	private Button btnDone;
+	private List<String> list = new ArrayList<String>();
 	
 	public final static String GROUP_NAME = "";
 	
@@ -35,41 +37,15 @@ public class CashTransferActivity extends Activity {
 
     	MemberList(grpName);
     	
-    	/*String grpDatabase = groupNameToDatabase(grpName);
-    	SQLiteDatabase db=null;
-    	db = this.openOrCreateDatabase(grpDatabase, MODE_PRIVATE, null);
-        Cursor c = db.rawQuery("SELECT count(*) FROM " + TableName , null);*/
-    	/*String[] from = new String[1];
-    	from[0] = "Name";
-    	int[] to = new int[1];
-    	to[0] = R.id.spinner1;
-    	Cursor c = MemberList(grpName);
-    	SimpleCursorAdapter ca = new SimpleCursorAdapter(this, R.layout.activity_cash_transfer, c, from, null);
-    	
-    	spinner1 = (Spinner) findViewById(R.id.spinner1);
-    	spinner2 = (Spinner) findViewById(R.id.spinner2);
-    	
-    	spinner1.setAdapter(ca);
-    	spinner2.setAdapter(ca);*/
-        
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
+    	addItemsOnSpinner1();
+    	addItemsOnSpinner2();
+    	addListenerOnButton();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_cash_transfer, menu);
         return true;
-    }
-
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
     
     public int GroupNameToDatabaseId(String GroupName){
@@ -90,7 +66,7 @@ public class CashTransferActivity extends Activity {
     	return databaseId;
     }
     
-    public void MemberList(String GroupName){
+   public void MemberList(String GroupName){
     	int databaseId=GroupNameToDatabaseId(GroupName);
     	String gdName="Database_"+databaseId;
     	SQLiteDatabase groupDb=null;
@@ -118,29 +94,11 @@ public class CashTransferActivity extends Activity {
         	if(groupDb!=null)
         		groupDb.close();
         }
-		
-		for(int j=0;j<count;j++){
-			TextView n;
-			TextView n1;
-			if (j==0) { n = (TextView) findViewById(R.id.radio00); n1 = (TextView) findViewById(R.id.radio0); }
-			else if (j==1) { n = (TextView) findViewById(R.id.radio01); n1 = (TextView) findViewById(R.id.radio1); }
-			else if (j==2) { n = (TextView) findViewById(R.id.radio02); n1 = (TextView) findViewById(R.id.radio2); }
-			else if (j==3) { n = (TextView) findViewById(R.id.radio03); n1 = (TextView) findViewById(R.id.radio3); }
-			else { n = (TextView) findViewById(R.id.radio04);  n1 = (TextView) findViewById(R.id.radio4); }
-			n.setText(name[j]);
-			n1.setText(name[j]);
-		}
-    	for (int j=count; j<5; j++) {
-    		View nameV;
-    		View balanceV;
-			if (j==0) { nameV = findViewById(R.id.radio00); balanceV = findViewById(R.id.radio0); }
-			else if (j==1) { nameV = findViewById(R.id.radio01); balanceV = findViewById(R.id.radio1); }
-			else if (j==2) { nameV = findViewById(R.id.radio02); balanceV = findViewById(R.id.radio2); }
-			else if (j==3) { nameV = findViewById(R.id.radio03); balanceV = findViewById(R.id.radio3); }
-			else { nameV = findViewById(R.id.radio04); balanceV = findViewById(R.id.radio4); }
-			nameV.setVisibility(View.GONE);
-			balanceV.setVisibility(View.GONE);
+    	
+    	for (int j=0; j<count; j++) {
+    		list.add(name[j]);
     	}
+		
     }
     
     public int MemberNameToId(int GroupID,String member){
@@ -188,30 +146,53 @@ public class CashTransferActivity extends Activity {
         }
     }
     
-    public void transferDone(View v) {
-    	RadioGroup g = (RadioGroup) findViewById(R.id.radioGroup1);
-		int selected = g.getCheckedRadioButtonId();
-		RadioButton b = (RadioButton) findViewById(selected);
-		String fM = b.getText().toString();
-		
-		RadioGroup g0 = (RadioGroup) findViewById(R.id.radioGroup01);
-		int selected0 = g0.getCheckedRadioButtonId();
-		RadioButton b0 = (RadioButton) findViewById(selected0);
-		String tM = b0.getText().toString();
-		
-		/*TextView tv =new TextView(this);
-		tv.setText(fM);
-		setContentView(tv);*/
+    public void addItemsOnSpinner1() {
+      	 
+    	spinner1 = (Spinner) findViewById(R.id.spinner1);
+    	ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+    		android.R.layout.simple_spinner_item, list);
+    	dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    	spinner1.setAdapter(dataAdapter);
+      }
+    
+    public void addItemsOnSpinner2() {
+   	 
+    	spinner2 = (Spinner) findViewById(R.id.spinner2);
+    	ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+    		android.R.layout.simple_spinner_item, list);
+    	dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    	spinner2.setAdapter(dataAdapter);
+      }
+      
+      public void addListenerOnButton() {
+    	  
+    		spinner1 = (Spinner) findViewById(R.id.spinner1);
+    		spinner2 = (Spinner) findViewById(R.id.spinner2);
+    		btnDone = (Button) findViewById(R.id.button1);
+    	 
+    		btnDone.setOnClickListener(new OnClickListener() {
+    	 
+    		public void onClick(View v) {
+    			transferDone();
+    		}
+    	 
+    		});
+    	  }
+    
+    
+    public void transferDone() {
+    	String fM = String.valueOf(spinner1.getSelectedItem());
+		String tM = String.valueOf(spinner2.getSelectedItem());
 		
 		EditText editText;
 		editText = (EditText) findViewById(R.id.amountText);
 		float a = Float.valueOf(editText.getText().toString());
 		
-    	CashTransfer(grpName, fM, tM, a);
-    	
-    	Intent intent = new Intent(this, GroupSummaryActivity.class);
-    	intent.putExtra(GROUP_NAME, grpName);
-    	startActivity(intent);
+		CashTransfer(grpName, fM, tM, a);
+			
+		Intent intent = new Intent(this, GroupSummaryActivity.class);
+		intent.putExtra(GROUP_NAME, grpName);
+		startActivity(intent);
     }
     
 }
