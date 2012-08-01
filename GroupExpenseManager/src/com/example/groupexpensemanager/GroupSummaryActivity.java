@@ -21,16 +21,20 @@ public class GroupSummaryActivity extends Activity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         grpName = intent.getStringExtra(GroupsActivity.GROUP_NAME);
-        
         setContentView(R.layout.activity_group_summary);
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
-        
         TextView header = (TextView) findViewById(R.id.textView1);
         header.setText(grpName);
-        
-        MemberListWithBalance(grpName);
     }
-
+    @Override
+	public void onStart(){
+		super.onStart();
+		MemberListWithBalance(grpName);
+    }
+    @Override
+    public void onRestart() {
+    	super.onRestart();
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_group_summary, menu);

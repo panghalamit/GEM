@@ -20,7 +20,7 @@ import android.widget.ListView;
 public class GroupsActivity extends Activity {
 
 	 //LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
-	public ArrayList<String> listItems = new ArrayList<String>();
+	public ArrayList<String> listItems;
 
     //DEFINING STRING ADAPTER WHICH WILL HANDLE DATA OF LISTVIEW
     ArrayAdapter<String> adapter;
@@ -31,9 +31,12 @@ public class GroupsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups);
-        
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
-        
+    }
+	
+	@Override
+	public void onStart(){
+		super.onStart();
+		listItems= new ArrayList<String>();
         gl = (ListView) this.findViewById(R.id.GroupsList);
         groupList();
         
@@ -49,9 +52,12 @@ public class GroupsActivity extends Activity {
     		public void onNothingClick(AdapterView parentView) {
             }
         });
-        
+	}
+	
+	@Override
+	public void onRestart() {
+    	super.onRestart();
     }
-    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_groups, menu);
