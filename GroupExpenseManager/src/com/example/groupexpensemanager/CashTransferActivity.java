@@ -21,7 +21,7 @@ import android.widget.Spinner;
 @TargetApi(11)
 public class CashTransferActivity extends Activity {
 	public String grpName = "";
-	private Spinner spinner1, spinner2;
+	private Spinner spin1, spin2;
 	private Button btnDone;
 	private List<String> list = new ArrayList<String>();
 	
@@ -148,26 +148,26 @@ public class CashTransferActivity extends Activity {
     
     public void addItemsOnSpinner1() {
       	 
-    	spinner1 = (Spinner) findViewById(R.id.spinner1);
+    	spin1 = (Spinner) findViewById(R.id.spinner1);
     	ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
     		android.R.layout.simple_spinner_item, list);
     	dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    	spinner1.setAdapter(dataAdapter);
+    	spin1.setAdapter(dataAdapter);
       }
     
     public void addItemsOnSpinner2() {
    	 
-    	spinner2 = (Spinner) findViewById(R.id.spinner2);
+    	spin2 = (Spinner) findViewById(R.id.spinner2);
     	ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
     		android.R.layout.simple_spinner_item, list);
     	dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    	spinner2.setAdapter(dataAdapter);
+    	spin2.setAdapter(dataAdapter);
       }
       
       public void addListenerOnButton() {
     	  
-    		spinner1 = (Spinner) findViewById(R.id.spinner1);
-    		spinner2 = (Spinner) findViewById(R.id.spinner2);
+    		spin1 = (Spinner) findViewById(R.id.spinner1);
+    		spin2 = (Spinner) findViewById(R.id.spinner2);
     		btnDone = (Button) findViewById(R.id.button1);
     	 
     		btnDone.setOnClickListener(new OnClickListener() {
@@ -181,8 +181,8 @@ public class CashTransferActivity extends Activity {
     
     
     public void transferDone() {
-    	String fM = String.valueOf(spinner1.getSelectedItem());
-		String tM = String.valueOf(spinner2.getSelectedItem());
+    	String fM = String.valueOf(spin1.getSelectedItem());
+		String tM = String.valueOf(spin2.getSelectedItem());
 		
 		EditText editText;
 		editText = (EditText) findViewById(R.id.amountText);
