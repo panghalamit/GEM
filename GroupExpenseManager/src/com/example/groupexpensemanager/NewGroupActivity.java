@@ -110,13 +110,28 @@ public class NewGroupActivity extends Activity {
     	numberMembers--;
     }
     
+    public boolean isMemberof(String s, String[] sarray){
+    	for(int j=0;j<numberMembers;j++){
+    		if(s.equals(sarray[j])){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
     public void done(View v) {
     	EditText editText = (EditText) findViewById(R.id.grpText);
     	String message = editText.getText().toString();
-    	    	
+    	if(message.equals("")){
+    		//TODO error-popup
+    		return;
+    	}
     	String[] members = new String[numberMembers];
-    	int k;
-    	for (k=0; k<numberMembers; k++) {
+    	for(int j=0;j<numberMembers;j++){
+    		members[j]="";
+    	}
+    	
+    	for (int k=0; k<numberMembers; k++) {
     		EditText editTextMember;
     		if (k==0) editTextMember = (EditText) findViewById(R.id.EditText00);
     		else if (k==1) editTextMember = (EditText) findViewById(R.id.EditText01);
@@ -124,16 +139,16 @@ public class NewGroupActivity extends Activity {
     		else if (k==3) editTextMember = (EditText) findViewById(R.id.EditText03);
     		else editTextMember = (EditText) findViewById(R.id.EditText04);
     		String temp = editTextMember.getText().toString();
-    		if (temp == null) {
+    		if (temp.equals("") || isMemberof(temp,members)) {
     			//TODO ErrorPopUp
+    			return;
     		}
     		else {
-    			members[k] = editTextMember.getText().toString();
+    			members[k] = temp;
     		}
     	}
     	   	
     	insertToDatabase(message, members);
-    	this.finish();	
     }
     
     public void insertToDatabase(String groupName, String[] members) {
@@ -141,27 +156,30 @@ public class NewGroupActivity extends Activity {
         String TableName=MainActivity.GroupTable;
         String CommonDatabase=MainActivity.CommonDatabase;
         int ID=1;
-
+        int newID=1;
         try {
 	        myDB = this.openOrCreateDatabase(CommonDatabase, MODE_PRIVATE, null);
-	        Cursor count = myDB.rawQuery("SELECT count(*) FROM " + TableName , null);
-	        boolean flag=true;
+	        Cursor isPresent=myDB.rawQuery("SELECT ID FROM " + TableName + " WHERE Name = '"+groupName+"';", null);
+        	if(isPresent.getCount()>0){
+        		//TODO error popup groupname already present
+	        	return;
+        	}
+	        Cursor count = myDB.rawQuery("SELECT ID FROM " + TableName , null);
 	        if(count.moveToFirst()){
-	        	ID=count.getInt(0)+1;
-	        	Cursor isPresent=myDB.rawQuery("SELECT ID FROM " + TableName + " WHERE Name = '"+groupName+"';", null);
-	        	if(isPresent.getCount()>0){
-	        		flag=false;
-	        	}
+	        	do{
+	        		ID=count.getInt(0);
+	        		if(ID!=newID){
+	        			break;
+	        		}
+	        		newID++;
+	        	}while(count.moveToNext());
+	        	ID=newID;
 	        }
-	        if(flag){
-	        	myDB.execSQL("INSERT INTO " + TableName + " ( ID, Name ) VALUES ( '" + ID+"', '"+groupName + "' );" );
+	        myDB.execSQL("INSERT INTO " + TableName + " ( ID, Name ) VALUES ( '" + ID+"', '"+groupName + "' );" );
 		        
-		        String DatabaseName="Database_"+ID;
-		        createTables(DatabaseName,members);	        
-		    }
-	        else{
-	        	//TODO error popup
-	        }
+		    String DatabaseName="Database_"+ID;
+		    createTables(DatabaseName,members);	        
+		    
         }
         catch(Exception e) {
         	Log.e("Error", "Error", e);
@@ -170,6 +188,7 @@ public class NewGroupActivity extends Activity {
         	if(myDB!=null)
         		myDB.close();
         }
+        this.finish();	
     }
     
     public void createTables(String databaseName,String[] members){
@@ -179,7 +198,7 @@ public class NewGroupActivity extends Activity {
         	groupDatabase.execSQL("CREATE TABLE IF NOT EXISTS "
         	           + MainActivity.MemberTable
         	           + " ( ID int(11) NOT NULL, Name varchar(255) NOT NULL, Balance float NOT NULL );");
-        	groupDatabase.execSQL("CREATE TABLE IF NOT EXISTS "
+        	/*groupDatabase.execSQL("CREATE TABLE IF NOT EXISTS "
      	           + MainActivity.EventTable
      	           + " ( ID int(11) NOT NULL, Name varchar(255) NOT NULL );");
         	groupDatabase.execSQL("CREATE TABLE IF NOT EXISTS "
@@ -188,6 +207,7 @@ public class NewGroupActivity extends Activity {
         	groupDatabase.execSQL("CREATE TABLE IF NOT EXISTS "
        	           + MainActivity.CashTable
        	           + " ( ID int(11) NOT NULL, FromMemberId int(11) NOT NULL, ToMemberId int(11) NOT NULL, Amount float NOT NULL);");
+        	*/
         	int length=members.length;
         	for(int j=0;j<length;j++){
         		groupDatabase.execSQL("INSERT INTO "+MainActivity.MemberTable + " ( ID, Name, Balance ) VALUES ( '" + (j+1)+"', '"+members[j] + "', '"+0+"' );" );

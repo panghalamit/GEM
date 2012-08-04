@@ -23,9 +23,6 @@
         <activity
             android:name=".GroupsActivity"
             android:label="@string/title_activity_groups" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.groupexpensemanager.MainActivity" />
         </activity>
         <activity
             android:name=".NewGroupActivity"
@@ -51,6 +48,13 @@
         <activity
             android:name=".AddEventActivity"
             android:label="@string/title_activity_add_event" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.groupexpensemanager.GroupSummaryActivity" />
+        </activity>
+        <activity
+            android:name=".PossibleSolution"
+            android:label="@string/title_activity_possible_solution" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.groupexpensemanager.GroupSummaryActivity" />

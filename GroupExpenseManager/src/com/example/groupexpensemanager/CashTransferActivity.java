@@ -126,15 +126,16 @@ public class CashTransferActivity extends Activity {
     	int toMember=MemberNameToId(GroupId,toM);
     	SQLiteDatabase groupDb=null;
     	String database="Database_"+GroupId;
-    	int ID=1;
+    	//int ID=1;
     	try{
 	        groupDb = this.openOrCreateDatabase(database, MODE_PRIVATE, null);
-	        Cursor count = groupDb.rawQuery("SELECT count(*) FROM " + MainActivity.CashTable , null);
+	        /*Cursor count = groupDb.rawQuery("SELECT count(*) FROM " + MainActivity.CashTable , null);
 	        if(count.getCount()>0){
 	        	count.moveToFirst();
 	        	ID=count.getInt(0)+1;
 	        }
 	        groupDb.execSQL("INSERT INTO " + MainActivity.CashTable + " ( ID, FromMemberId, ToMemberId, Amount ) VALUES ( '" + ID+"', '"+fromMember+ "', '"+toMember+"', '"+amount+"' );" );
+	        */
 	        groupDb.execSQL("UPDATE "+MainActivity.MemberTable+" SET Balance = Balance+'"+amount+"' WHERE ID = '"+fromMember+"';");
 	        groupDb.execSQL("UPDATE "+MainActivity.MemberTable+" SET Balance = Balance-'"+amount+"' WHERE ID = '"+toMember+"';");
     	}catch(Exception e) {

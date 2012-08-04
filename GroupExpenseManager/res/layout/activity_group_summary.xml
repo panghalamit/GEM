@@ -17,7 +17,7 @@
         android:textColor="#F2F5A9" />
 
     <ImageButton
-        android:id="@+id/minusButton4"
+        android:id="@+id/editButton"
         style="@style/EditButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -25,18 +25,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
-        android:contentDescription="@string/desc"
-        android:onClick="removeMember"
+        android:contentDescription="@string/desc2"
+        android:onClick="editGroup"
         android:tag="4" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="50dp"
-        android:text="@string/addevent" />
     
     <Button
         android:id="@+id/button2"
@@ -88,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/nameText1"
         android:layout_alignBottom="@+id/nameText1"
-        android:layout_toLeftOf="@+id/minusButton4"
+        android:layout_toLeftOf="@+id/editButton"
         android:layout_marginTop="30dp"
         android:text="@string/test"
         android:textColor="#ffffff" />
@@ -110,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/nameText2"
         android:layout_alignBottom="@+id/nameText2"
-        android:layout_toLeftOf="@+id/minusButton4"
+        android:layout_toLeftOf="@+id/editButton"
         android:layout_marginTop="30dp"
         android:text="@string/test"
         android:textColor="#ffffff" />
@@ -132,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/nameText3"
         android:layout_alignBottom="@+id/nameText3"
-        android:layout_toLeftOf="@+id/minusButton4"
+        android:layout_toLeftOf="@+id/editButton"
         android:layout_marginTop="30dp"
         android:text="@string/test"
         android:textColor="#ffffff" />
@@ -154,7 +145,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/nameText4"
         android:layout_alignBottom="@+id/nameText4"
-        android:layout_toLeftOf="@+id/minusButton4"
+        android:layout_toLeftOf="@+id/editButton"
         android:layout_marginTop="30dp"
         android:text="@string/test"
         android:textColor="#ffffff" />
@@ -176,10 +167,28 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/nameText5"
         android:layout_alignBottom="@+id/nameText5"
-        android:layout_toLeftOf="@+id/minusButton4"
+        android:layout_toLeftOf="@+id/editButton"
         android:layout_marginTop="30dp"
         android:text="@string/test"
         android:textColor="#ffffff" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_alignLeft="@+id/textView5"
+        android:text="@string/addevent" />
+
+    <Button
+        android:id="@+id/solutionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/balanceText5"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:onClick="showSolution"
+        android:text="@string/solution" />
 
 </RelativeLayout>

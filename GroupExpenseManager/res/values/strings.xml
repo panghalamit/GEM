@@ -37,6 +37,8 @@
     <string name="cashtransfer">Cash Transfer</string>
     <string name="title_activity_cash_transfer">CashTransferActivity</string>
     <string name="amount">Amount</string>
+    <string name="solution">Solution</string>
     <string name="title_activity_add_event">AddEventActivity</string>
+    <string name="title_activity_possible_solution">PossibleSolution</string>
 
 </resources>

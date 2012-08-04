@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +26,7 @@ public class GroupsActivity extends Activity {
     //DEFINING STRING ADAPTER WHICH WILL HANDLE DATA OF LISTVIEW
     ArrayAdapter<String> adapter;
     private ListView gl;
-    public final static String GROUP_NAME = "";
+    public final static String GROUP_NAME = "GroupSummmary/GroupName";
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,41 @@ public class GroupsActivity extends Activity {
         finally{ 
         	if(groupDb!=null)
         		groupDb.close();
+        }
+    }
+    
+    public int GroupNameToDatabaseId(String GroupName){
+    	int databaseId=0;
+    	SQLiteDatabase commonDb=null;
+    	try{
+    		commonDb = this.openOrCreateDatabase(MainActivity.CommonDatabase, MODE_PRIVATE, null);
+	        Cursor idquery = commonDb.rawQuery("SELECT ID FROM " + MainActivity.GroupTable +" WHERE Name = '"+GroupName+"';", null);
+	        idquery.moveToFirst();
+        	databaseId = idquery.getInt(0);;
+    	}catch(Exception e) {
+    		Log.e("Error", "Error", e);
+        }
+        finally{ 
+        	if(commonDb!=null)
+        		commonDb.close();
+        }
+    	return databaseId;
+    }
+    
+    public void deleteGroup(String groupName){
+    	int id = GroupNameToDatabaseId(groupName);
+    	String databasename="Database_"+id;
+    	this.deleteDatabase(databasename);
+    	SQLiteDatabase commonDb=null;
+    	try{
+    		commonDb = this.openOrCreateDatabase(MainActivity.CommonDatabase, MODE_PRIVATE, null);
+    		commonDb.execSQL("DELETE FROM "+ MainActivity.GroupTable+" WHERE ID = '"+id+"';");
+    	}catch(Exception e) {
+    		Log.e("Error", "Error", e);
+        }
+        finally{ 
+        	if(commonDb!=null)
+        		commonDb.close();
         }
     }
     

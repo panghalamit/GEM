@@ -38,26 +38,15 @@ public class MainActivity extends Activity {
            		myDB.close();
            }
         
-        //loadingTime();
-        
         Intent intent = new Intent(this, GroupsActivity.class);
         startActivity(intent);
+        this.finish();
     }
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
     
-    /*public void loadingTime() {
-    	try {
-        	Thread.sleep(5000);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	Intent intent = new Intent(this, GroupsActivity.class);
-        startActivity(intent);
-    }*/
 }
