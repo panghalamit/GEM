@@ -1,14 +1,46 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#222222"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="20dp" >
 
-    <TextView
+    <TableRow
+        android:id="@+id/tableRow1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".PossibleSolution" />
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="10dp"
+        android:stretchColumns="*" >
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/solutionFrom"
+            android:paddingLeft="10dp"
+            android:paddingRight="40dp"
+            android:text="@string/from"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/solutionTo"
+            android:paddingLeft="10dp"
+            android:paddingRight="50dp"
+            android:text="@string/to"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffff" />
+
+		<TextView
+		    android:id="@+id/solutionAmount"
+		    android:paddingLeft="10dp"
+		    android:paddingRight="20dp"
+		    android:text="@string/amount"
+		    android:textAppearance="?android:attr/textAppearanceLarge"
+		    android:textColor="#ffffff" />
+
+    </TableRow>
+
+
+</TableLayout>
