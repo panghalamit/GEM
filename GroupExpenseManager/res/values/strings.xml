@@ -14,6 +14,11 @@
     <string name="name3">Member 3</string>
     <string name="name4">Member 4</string>
     <string name="name5">Member 5</string>
+    <string name="name6">Member 6</string>
+    <string name="name7">Member 7</string>
+    <string name="name8">Member 8</string>
+    <string name="name9">Member 9</string>
+    <string name="name10">Member 10</string>
     <string name="me">Me</string>
     <string name="add">Add Member</string>
     <string name="done">Done</string>
@@ -32,10 +37,19 @@
     <string name="name">Member Name</string>
     <string name="spent">Spent</string>
     <string name="consumed">Consumed</string>
-    <string name="balance">Balance Due</string>
+    <string name="topay">To Pay</string>
+    <string name="toget">To Get</string>
     <string name="addevent">Add Event</string>
     <string name="cashtransfer">Cash Transfer</string>
     <string name="title_activity_cash_transfer">CashTransferActivity</string>
     <string name="amount">Amount</string>
+    <string name="title_activity_consumption">ConsumptionActivity</string>
+    <string name="done_button1">Done</string>
+    <string name="title_activity_error_main">ErrorMain</string>
+    <string name="title_activity_events">Events</string>
+    <string name="consumption_worth">Consumption Worth</string>
+    <string name="done_button2">Done</string>
+    <string name="add_button">Add another</string>
+    <string name="share_button">Share</string>
 
 </resources>

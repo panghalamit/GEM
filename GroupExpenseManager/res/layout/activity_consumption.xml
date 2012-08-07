@@ -1,0 +1,10 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/ScrollView01" android:layout_width="fill_parent"
+android:layout_height="fill_parent" android:background="#FFFFFF">
+<RelativeLayout android:layout_height="wrap_content"
+    android:layout_width="fill_parent">
+    <ImageView android:id="@+id/minusButton879"
+        android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+        android:layout_marginLeft="15dip" android:layout_marginTop="15dip"
+        android:src="@drawable/minus_back" android:contentDescription="@string/desc" android:clickable="true" /> </RelativeLayout> </ScrollView>
