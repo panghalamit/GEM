@@ -1,5 +1,5 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tableLayout2"
+    android:id="@+id/tableLayoutpossiblesolution"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#222222"
@@ -8,39 +8,49 @@
     android:paddingTop="20dp" >
 
     <TableRow
-        android:id="@+id/tableRow1"
+        android:id="@+id/fromtopossiblesolution"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:paddingBottom="5dp"
-        android:paddingTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
         android:stretchColumns="*" >
 
         <TextView
             android:id="@+id/solutionFrom"
-            android:paddingLeft="10dp"
-            android:paddingRight="40dp"
+            android:layout_weight="1"
             android:text="@string/from"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff" />
 
         <TextView
             android:id="@+id/solutionTo"
-            android:paddingLeft="10dp"
-            android:paddingRight="50dp"
+            android:layout_weight="1"
             android:text="@string/to"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff" />
 
 		<TextView
 		    android:id="@+id/solutionAmount"
-		    android:paddingLeft="10dp"
-		    android:paddingRight="20dp"
+		    android:layout_weight="1"
 		    android:text="@string/amount"
 		    android:textAppearance="?android:attr/textAppearanceLarge"
 		    android:textColor="#ffffff" />
 
     </TableRow>
+  <ScrollView
 
+    android:id="@+id/TableScrollerPossibleSolution"
 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <TableLayout
+
+      android:id="@+id/PossibeSolutionTable"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:stretchColumns="0,1,2" />
+
+  </ScrollView>
+    
 </TableLayout>

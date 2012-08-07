@@ -1,18 +1,27 @@
 package com.example.groupexpensemanager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
+import android.widget.Toast;
 
 public class AddEventActivity extends Activity {
 
+	public String grpName = "";
+	public int grpid = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+        
+        Intent  intent = getIntent();
+		grpName = intent.getStringExtra(GroupsActivity.GROUP_NAME);
+		grpid = intent.getIntExtra(GroupsActivity.GROUP_ID,0);
     }
 
     @Override
@@ -20,28 +29,10 @@ public class AddEventActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_add_event, menu);
         return true;
     }
-    
-    public int GroupNameToDatabaseId(String GroupName){
-    	int databaseId=0;
-    	SQLiteDatabase commonDb=null;
-    	try{
-    		commonDb = this.openOrCreateDatabase(MainActivity.CommonDatabase, MODE_PRIVATE, null);
-	        Cursor idquery = commonDb.rawQuery("SELECT ID FROM " + MainActivity.GroupTable +" WHERE Name = '"+GroupName+"';", null);
-	        idquery.moveToFirst();
-        	databaseId = idquery.getInt(0);;
-    	}catch(Exception e) {
-    		Log.e("Error", "Error", e);
-        }
-        finally{ 
-        	if(commonDb!=null)
-        		commonDb.close();
-        }
-    	return databaseId;
-    }
-    
-    public int MemberNameToId(int GroupID,String member){
+       
+    public int MemberNameToId(String member){
     	int memberId=0;
-    	String database="Database_"+GroupID;
+    	String database="Database_"+grpid;
     	SQLiteDatabase commonDb=null;
     	try{
     		commonDb = this.openOrCreateDatabase(database, MODE_PRIVATE, null);
@@ -66,14 +57,15 @@ public class AddEventActivity extends Activity {
     	return sum;
     }
     
-    public void addEvent(String groupName, String eventName, float[] amountPaid, String[] paidMembers, float[] amountConsumed, boolean[][] whoConsumed){
+    public void addEvent(String eventName, float[] amountPaid, String[] paidMembers, float[] amountConsumed, boolean[][] whoConsumed){
     	if(sumArray(amountPaid)!=sumArray(amountConsumed)){
-    		//TODO error pop-up
+    		Toast n = Toast.makeText(AddEventActivity.this,"Error! Total paid amount != Total Amount Consumed", Toast.LENGTH_SHORT);
+    		n.setGravity(Gravity.CENTER_VERTICAL,0,0);
+    		n.show();
     		return;
     	}
-    	int groupId=GroupNameToDatabaseId(groupName);
     	SQLiteDatabase groupDb=null;
-    	String database="Database_"+groupId;
+    	String database="Database_"+grpid;
     	//int ID1=1;
     	//int ID2=1;
     	try{
@@ -96,7 +88,7 @@ public class AddEventActivity extends Activity {
 	        	ID2=count2.getInt(0)+1;
 	        }*/
 	        for(int j=0;j<amountPaid.length;j++){
-	        	int mId=MemberNameToId(groupId,paidMembers[j]);
+	        	int mId=MemberNameToId(paidMembers[j]);
 	        	//groupDb.execSQL("INSERT INTO "+ MainActivity.TransTable + " ( ID, MemberId, Amount, EventId ) VALUES ( '" + ID2+"', '"+mId+"', '"+amountPaid[j]+"', '"+ID1+"' );" );
 	        	memberBalance[mId-1]+=amountPaid[j];
 	        	//ID2++;	        	

@@ -22,9 +22,9 @@ public class GroupSummaryActivity extends Activity {
 	public final static String listofid = "summaryActivity/listid";
 	public final static String stringcount = "summaryActivity/count";
     
-	public String[] namearray = new String[5];
-    public float[] balancearray = new float[5];
-    public int[] idarray = new int[5];
+	public String[] namearray;
+    public float[] balancearray;
+    public int[] idarray;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,8 +88,9 @@ public class GroupSummaryActivity extends Activity {
     	SQLiteDatabase groupDb=null;
     	countmembers=0;
         
-        namearray = new String[5];
-        balancearray = new float[5];
+        namearray = new String[10];
+        idarray = new int[10];
+        balancearray = new float[10];
         
     	try{
 	        groupDb = this.openOrCreateDatabase(gdName, MODE_PRIVATE, null);
@@ -141,6 +142,7 @@ public class GroupSummaryActivity extends Activity {
     public void cashTransfer(View v) {
     	Intent intent = new Intent(this, CashTransferActivity.class);
     	intent.putExtra(GroupsActivity.GROUP_NAME, grpName);
+    	intent.putExtra(GroupsActivity.GROUP_ID, grpId);
     	startActivity(intent);
     }
     

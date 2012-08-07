@@ -27,6 +27,7 @@ public class GroupsActivity extends Activity {
     ArrayAdapter<String> adapter;
     private ListView gl;
     public final static String GROUP_NAME = "GroupSummmary/GroupName";
+    public final static String GROUP_ID = "GroupSummmary/GroupName";
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {
