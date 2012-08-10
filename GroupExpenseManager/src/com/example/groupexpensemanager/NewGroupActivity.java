@@ -4,14 +4,22 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TableRow.LayoutParams;
+import android.widget.TextView;
 import android.widget.Toast;
 
 @TargetApi(11)
@@ -43,72 +51,80 @@ public class NewGroupActivity extends Activity {
 	}
 
 	public void addMember(View v) {
-		View b = null;
-		View sign = null;
-		switch (numberMembers) {
-		case 1:
-			b = findViewById(R.id.tableRowNew1);
-			break;
-		case 2:
-			b = findViewById(R.id.tableRowNew2);
-			sign = findViewById(R.id.minusButton1);
-			break;
-		case 3:
-			b = findViewById(R.id.tableRowNew3);
-			sign = findViewById(R.id.minusButton2);
-			break;
-		case 4:
-			b = findViewById(R.id.tableRowNew4);
-			sign = findViewById(R.id.minusButton3);
-			break;
-		default:
-			break;
-		}
-
-		b.setVisibility(View.VISIBLE);
-		b.requestFocus();
-		if (sign != null) {
-			sign.setVisibility(View.GONE);
-		}
 		numberMembers++;
-		if (numberMembers == 5) {
-			View add = findViewById(R.id.addButton);
-			add.setVisibility(View.GONE);
-		}
+		TableLayout tl = (TableLayout)findViewById(R.id.newGrouptableLayout);
+		TableRow tr = new TableRow(this);
+		tr.setLayoutParams(new LayoutParams(
+			LayoutParams.WRAP_CONTENT,
+			LayoutParams.WRAP_CONTENT)
+		);
+		final float scale = tl.getContext().getResources().getDisplayMetrics().density;
+		int ten = (int) (10 * scale + 0.5f);
+		int five = (int) (5 * scale + 0.5f);
+		tr.setPadding(0, five, 0, ten);
+		tr.setId(numberMembers+100);
+		//Add a TextView
+		TextView tv = new TextView(this);
+		tv.setText("Member");
+		tv.setTextColor(Color.parseColor("#FFFFFF"));
+		LayoutParams l1 = new LayoutParams(
+				LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT,
+				0.01f);
+		l1.setMargins(0, ten, ten, 0);
+		tv.setLayoutParams(l1);
+		tr.addView(tv);
+		
+		//Add a Text Field
+		EditText et = new EditText(this);
+		et.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+		LayoutParams l2 = new LayoutParams(
+				LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT,
+				8f);
+		l2.setMargins(0, ten, ten, 0);
+		et.setLayoutParams(l2);
+		tr.addView(et);
+		
+		//Add the minus button
+		ImageButton ib = new ImageButton(this);
+		ib.setBackgroundResource(R.drawable.minus_back);
+		ib.setId(numberMembers+200);
+		int pixels = (int) (50 * scale + 0.5f);
+		LayoutParams l3 = new LayoutParams(pixels, pixels, 0.1f);
+		ib.setLayoutParams(l3);
+		ib.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				removeMember(v);
+			}
+		});
+		tr.addView(ib);
+		tr.requestFocus();
+		tl.addView(tr,new TableLayout.LayoutParams(
+				LayoutParams.FILL_PARENT,
+				LayoutParams.WRAP_CONTENT));
+		
+		//((ScrollView) findViewById(R.id.NewGroupScroller)).fullScroll(View.FOCUS_DOWN);
+		// Bhandari Now this works but i prefer the old way
+		/*if (numberMembers > 2) {
+			int index = tl.indexOfChild(tr);
+			TableRow tr2 = (TableRow)tl.getChildAt(index-1);
+			ImageButton ibRemove = (ImageButton) tr2.getChildAt(2);
+			tr2.removeView(ibRemove);
+		}*/
 	}
 
 	public void removeMember(View v) {
-		int s = Integer.valueOf((String) v.getTag());
-		View b = null;
-		View sign = null;
-		switch (s) {
-		case 1:
-			b= findViewById(R.id.tableRowNew1);
-			break;
-		case 2:
-			b = findViewById(R.id.tableRowNew2);
-			sign = findViewById(R.id.minusButton1);
-			break;
-		case 3:
-			b = findViewById(R.id.tableRowNew3);
-			sign = findViewById(R.id.minusButton2);
-			break;
-		case 4:
-			b = findViewById(R.id.tableRowNew4);
-			sign = findViewById(R.id.minusButton3);
-			break;
-		default:
-			break;
-		}
-
-		b.setVisibility(View.GONE);
-		if (sign != null) {
-			sign.setVisibility(View.VISIBLE);
-		}
-		if (numberMembers == 5) {
-			View add = findViewById(R.id.addButton);
-			add.setVisibility(View.VISIBLE);
-		}
+		TableLayout table = (TableLayout) findViewById(R.id.newGrouptableLayout);
+		TableRow tr = (TableRow)findViewById(v.getId()-100);
+		int index = table.indexOfChild(tr);
+		//Log.i("tablesameer", String.valueOf(index));
+		table.removeView(tr);
+		TableRow tr2 = (TableRow)table.getChildAt(index-1);
+		EditText et = (EditText)tr2.getChildAt(1);
+		et.requestFocus();
+		//Log.i("tablesameer33", et.getText().toString());
 		numberMembers--;
 	}
 
@@ -134,17 +150,19 @@ public class NewGroupActivity extends Activity {
 		for(int j=0;j<numberMembers;j++){
 			members[j]="";
 		}
-
+		TableLayout table = (TableLayout) findViewById(R.id.newGrouptableLayout);
 		for (int k=0; k<numberMembers; k++) {
 			EditText editTextMember;
-			if (k==0) editTextMember = (EditText) findViewById(R.id.EditText00);
-			else if (k==1) editTextMember = (EditText) findViewById(R.id.EditText01);
-			else if (k==2) editTextMember = (EditText) findViewById(R.id.EditText02);
-			else if (k==3) editTextMember = (EditText) findViewById(R.id.EditText03);
-			else editTextMember = (EditText) findViewById(R.id.EditText04);
+			editTextMember = (EditText) (((ViewGroup) table.getChildAt(k+1)).getChildAt(1));
 			String temp = editTextMember.getText().toString();
-			if (temp.equals("") || isMemberof(temp,members)) {
+			if (temp.equals("")){
 				Toast n = Toast.makeText(NewGroupActivity.this,"Error! Cannot leave Member Name empty", Toast.LENGTH_SHORT);
+				n.setGravity(Gravity.CENTER_VERTICAL,0,0);
+				n.show();
+				return;
+			}
+			else if(isMemberof(temp,members)){
+				Toast n = Toast.makeText(NewGroupActivity.this,"Error! Member "+temp+" already there", Toast.LENGTH_SHORT);
 				n.setGravity(Gravity.CENTER_VERTICAL,0,0);
 				n.show();
 				return;
@@ -153,7 +171,6 @@ public class NewGroupActivity extends Activity {
 				members[k] = temp;
 			}
 		}
-
 		insertToDatabase(message, members);
 	}
 
@@ -186,7 +203,9 @@ public class NewGroupActivity extends Activity {
 			myDB.execSQL("INSERT INTO " + TableName + " ( ID, Name ) VALUES ( '" + ID+"', '"+groupName + "' );" );
 
 			String DatabaseName="Database_"+ID;
+
 			createTables(DatabaseName,members);	        
+
 
 		}
 		catch(Exception e) {
@@ -196,7 +215,8 @@ public class NewGroupActivity extends Activity {
 			if(myDB!=null)
 				myDB.close();
 		}
-		this.finish();	
+
+		this.finish();
 	}
 
 	public void createTables(String databaseName,String[] members){
@@ -228,5 +248,4 @@ public class NewGroupActivity extends Activity {
 				groupDatabase.close();
 		}
 	}
-
 }

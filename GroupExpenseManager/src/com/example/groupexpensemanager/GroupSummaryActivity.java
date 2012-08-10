@@ -118,24 +118,35 @@ public class GroupSummaryActivity extends Activity {
 		for(int j=0;j<countmembers;j++){
 			TextView n;
 			TextView b;
-			if (j==0) { n = (TextView) findViewById(R.id.nameText1); b = (TextView) findViewById(R.id.balanceText1); }
-			else if (j==1) { n = (TextView) findViewById(R.id.nameText2); b = (TextView) findViewById(R.id.balanceText2); }
-			else if (j==2) { n = (TextView) findViewById(R.id.nameText3); b = (TextView) findViewById(R.id.balanceText3); }
-			else if (j==3) { n = (TextView) findViewById(R.id.nameText4); b = (TextView) findViewById(R.id.balanceText4); }
-			else { n = (TextView) findViewById(R.id.nameText5); b = (TextView) findViewById(R.id.balanceText5); }
+			TextView c;
+			if (j==0) { n = (TextView) findViewById(R.id.nameText1); b = (TextView) findViewById(R.id.payText1); c = (TextView) findViewById(R.id.getText1); }
+			else if (j==1) { n = (TextView) findViewById(R.id.nameText2); b = (TextView) findViewById(R.id.payText2); c = (TextView) findViewById(R.id.getText2); }
+			else if (j==2) { n = (TextView) findViewById(R.id.nameText3); b = (TextView) findViewById(R.id.payText3); c = (TextView) findViewById(R.id.getText3); }
+			else if (j==3) { n = (TextView) findViewById(R.id.nameText4); b = (TextView) findViewById(R.id.payText4); c = (TextView) findViewById(R.id.getText4); }
+			else { n = (TextView) findViewById(R.id.nameText5); b = (TextView) findViewById(R.id.payText5); c = (TextView) findViewById(R.id.getText5); }
 			n.setText(namearray[j]);
-			b.setText(String.valueOf(balancearray[j]));			
+			float a = balancearray[j];
+			if (a<0) {
+				b.setText(String.valueOf(-a));
+				c.setVisibility(View.GONE);
+			}
+			else {
+				c.setText(String.valueOf(a));
+				b.setVisibility(View.GONE);
+			}			
 		}
     	for (int j=countmembers; j<5; j++) {
     		View nameV;
     		View balanceV;
-			if (j==0) { nameV = findViewById(R.id.nameText1); balanceV = findViewById(R.id.balanceText1); }
-			else if (j==1) { nameV = findViewById(R.id.nameText2); balanceV = findViewById(R.id.balanceText2); }
-			else if (j==2) { nameV = findViewById(R.id.nameText3); balanceV = findViewById(R.id.balanceText3); }
-			else if (j==3) { nameV = findViewById(R.id.nameText4); balanceV = findViewById(R.id.balanceText4); }
-			else { nameV = findViewById(R.id.nameText5); balanceV = findViewById(R.id.balanceText5); }
+    		View getV;
+			if (j==0) { nameV = findViewById(R.id.nameText1); balanceV = findViewById(R.id.payText1); getV = findViewById(R.id.getText1); }
+			else if (j==1) { nameV = findViewById(R.id.nameText2); balanceV = findViewById(R.id.payText2); getV = findViewById(R.id.getText2); }
+			else if (j==2) { nameV = findViewById(R.id.nameText3); balanceV = findViewById(R.id.payText3); getV = findViewById(R.id.getText3); }
+			else if (j==3) { nameV = findViewById(R.id.nameText4); balanceV = findViewById(R.id.payText4); getV = findViewById(R.id.getText4); }
+			else { nameV = findViewById(R.id.nameText5); balanceV = findViewById(R.id.payText5); getV = findViewById(R.id.getText5); }
 			nameV.setVisibility(View.GONE);
 			balanceV.setVisibility(View.GONE);
+			getV.setVisibility(View.GONE);
     	}
     }
     
