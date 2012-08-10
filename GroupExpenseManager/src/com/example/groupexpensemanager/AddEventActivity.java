@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -118,8 +119,9 @@ public class AddEventActivity extends Activity {
 	private void addScroll1(){
         new Handler().postDelayed(new Runnable() {            
             public void run() {
-                ScrollView sv = (ScrollView)findViewById(R.id.addEventScroller);
-                sv.scrollTo(0, sv.getBottom());
+                Button b = (Button)findViewById(R.id.addbuttonAddevent1);
+            	ScrollView sv = (ScrollView)findViewById(R.id.addEventScroller);
+                sv.scrollBy(0, b.getHeight());
             }
         },0);
     }
@@ -156,8 +158,9 @@ public class AddEventActivity extends Activity {
 	private void addScroll2(){
         new Handler().postDelayed(new Runnable() {            
             public void run() {
-                ScrollView sv = (ScrollView)findViewById(R.id.addEventScroller);
-                sv.scrollTo(0, sv.getBottom());
+            	Button b = (Button)findViewById(R.id.donebuttonAddevent);
+            	ScrollView sv = (ScrollView)findViewById(R.id.addEventScroller);
+                sv.scrollTo(0, b.getBottom());
             }
         },0);
     }

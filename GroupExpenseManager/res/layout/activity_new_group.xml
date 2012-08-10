@@ -2,14 +2,13 @@
     android:id="@+id/NewGroupScroller"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#222222"
-    android:layout_alignParentTop="true" >
+    android:layout_alignParentTop="true"
+    android:background="#222222" >
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#222222"
         android:orientation="vertical" >
 
         <TableLayout
@@ -89,6 +88,7 @@
         </TableLayout>
 
         <LinearLayout
+            android:id="@+id/newGroupLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"

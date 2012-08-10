@@ -110,17 +110,11 @@ public class NewGroupActivity extends Activity {
 	}
 	
 	private void focusScroll(){
-		/*final ScrollView sv = (ScrollView)findViewById(R.id.NewGroupScroller);
-		final Button b = (Button)findViewById(R.id.doneButtonNewGroup);
-		sv.post(new Runnable() {
-			public void run() {
-				sv.scrollTo(0,b.getBottom());
-			}
-		});*/
 		new Handler().postDelayed(new Runnable() {            
             public void run() {
-                ScrollView sv = (ScrollView)findViewById(R.id.NewGroupScroller);
-                sv.scrollTo(0, sv.getBottom());
+            	View b = (View)findViewById(R.id.newGroupLinearLayout);
+            	ScrollView sv = (ScrollView)findViewById(R.id.NewGroupScroller);
+                sv.scrollTo(0, b.getBottom());
             }
         },0);
     }
