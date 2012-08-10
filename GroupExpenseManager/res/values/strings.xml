@@ -35,6 +35,8 @@
     <string name="title_activity_cash_transfer">CashTransferActivity</string>
     <string name="amount">Amount</string>
     <string name="solution">Solution</string>
+    <string name="history">History</string>
+    <string name="nullify">Nullify</string>
     <string name="title_activity_add_event">AddEventActivity</string>
     <string name="title_activity_possible_solution">PossibleSolution</string>
     <string name="title_activity_consumption">ConsumptionActivity</string>

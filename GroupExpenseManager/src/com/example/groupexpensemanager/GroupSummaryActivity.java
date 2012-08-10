@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TableLayout;
+import android.widget.TableLayout.LayoutParams;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public class GroupSummaryActivity extends Activity {
@@ -33,19 +37,17 @@ public class GroupSummaryActivity extends Activity {
         grpName = intent.getStringExtra(GroupsActivity.GROUP_NAME);
         grpId=GroupNameToDatabaseId(grpName);
         setContentView(R.layout.activity_group_summary);
-        TextView header = (TextView) findViewById(R.id.textView1);
+        TextView header = (TextView) findViewById(R.id.groupNametextView);
         header.setText(grpName);
+        MemberListWithBalance();
+        fillEntryInTable();
     }
-    
-    @Override
-	public void onStart(){
-		super.onStart();
-		MemberListWithBalance();
-    }
-    
+     
     @Override
     public void onRestart() {
     	super.onRestart();
+    	MemberListWithBalance();
+    	correctEntryInTable();
     }
     
     @Override
@@ -84,20 +86,18 @@ public class GroupSummaryActivity extends Activity {
     }
     
     public void MemberListWithBalance(){
+    	Log.i("sameer", "hello1");
     	String gdName="Database_"+grpId;
     	SQLiteDatabase groupDb=null;
     	countmembers=0;
-        
         namearray = new String[10];
         idarray = new int[10];
         balancearray = new float[10];
-        
+        Log.i("sameer", "hello2");
     	try{
-	        groupDb = this.openOrCreateDatabase(gdName, MODE_PRIVATE, null);
+    		groupDb = this.openOrCreateDatabase(gdName, MODE_PRIVATE, null);
 	        Cursor mquery = groupDb.rawQuery("SELECT * FROM " + MainActivity.MemberTable+";",null);
-	        //int count=0;
-	        //count = mquery.getCount();
-	        
+	        	        
 	        mquery.moveToFirst();
 		    do{
 		    	idarray[countmembers] = mquery.getInt(0);
@@ -114,40 +114,76 @@ public class GroupSummaryActivity extends Activity {
         	if(groupDb!=null)
         		groupDb.close();
         }
-		
-		for(int j=0;j<countmembers;j++){
-			TextView n;
-			TextView b;
-			TextView c;
-			if (j==0) { n = (TextView) findViewById(R.id.nameText1); b = (TextView) findViewById(R.id.payText1); c = (TextView) findViewById(R.id.getText1); }
-			else if (j==1) { n = (TextView) findViewById(R.id.nameText2); b = (TextView) findViewById(R.id.payText2); c = (TextView) findViewById(R.id.getText2); }
-			else if (j==2) { n = (TextView) findViewById(R.id.nameText3); b = (TextView) findViewById(R.id.payText3); c = (TextView) findViewById(R.id.getText3); }
-			else if (j==3) { n = (TextView) findViewById(R.id.nameText4); b = (TextView) findViewById(R.id.payText4); c = (TextView) findViewById(R.id.getText4); }
-			else { n = (TextView) findViewById(R.id.nameText5); b = (TextView) findViewById(R.id.payText5); c = (TextView) findViewById(R.id.getText5); }
-			n.setText(namearray[j]);
+    	Log.i("sameer", "hello3");
+    }
+    
+    public void fillEntryInTable(){
+    	TableLayout tl = (TableLayout)findViewById(R.id.groupSummaryTableLayout);
+    	for(int j=0;j<countmembers;j++){
+			TableRow tr = new TableRow(this);
+			tr.setLayoutParams(new LayoutParams(
+					LayoutParams.FILL_PARENT,
+					LayoutParams.WRAP_CONTENT));
+			TextView v1= new TextView(this);
+			v1.setText(namearray[j]);
+			TextView v2= new TextView(this);
+			TextView v3= new TextView(this);
 			float a = balancearray[j];
 			if (a<0) {
-				b.setText(String.valueOf(-a));
-				c.setVisibility(View.GONE);
+				v2.setText(String.valueOf(-a));
+				v3.setText(null);
 			}
 			else {
-				c.setText(String.valueOf(a));
-				b.setVisibility(View.GONE);
+				v3.setText(String.valueOf(a));
+				v2.setText(null);
+			}			
+	        v1.setTextColor(Color.parseColor("#FFFFFF"));
+	        v2.setTextColor(Color.parseColor("#FFFFFF"));
+	        v3.setTextColor(Color.parseColor("#FFFFFF"));
+	        /*LayoutParams l1 = new LayoutParams(
+	                         LayoutParams.MATCH_PARENT,
+	                         LayoutParams.MATCH_PARENT,
+	                         1f);
+	        LayoutParams l2 = new LayoutParams(
+	                LayoutParams.MATCH_PARENT,
+	                LayoutParams.MATCH_PARENT,
+	                1f);
+	        LayoutParams l3 = new LayoutParams(
+	                LayoutParams.MATCH_PARENT,
+	                LayoutParams.MATCH_PARENT,
+	                1f);
+	       
+	         v1.setLayoutParams(l1);
+	         v2.setLayoutParams(l2);
+	         v3.setLayoutParams(l3);*/
+	         tr.addView(v1);
+	         tr.addView(v2);
+	         tr.addView(v3);
+	         tl.addView(tr);
+    	}
+    }
+    
+    public void correctEntryInTable(){
+    	Log.i("sameer", "hello4");
+    	TableLayout table = (TableLayout) findViewById(R.id.groupSummaryTableLayout);
+		for (int k=0; k<countmembers; k++) {
+			Log.i("sameer", String.valueOf(k));
+			TableRow tr2 = (TableRow)table.getChildAt(k+1);
+			TextView v1 = (TextView) (tr2.getChildAt(0));
+			TextView v2 = (TextView) (tr2.getChildAt(1));
+			TextView v3 = (TextView) (tr2.getChildAt(2));
+			v1.setText(namearray[k]);
+			float a = balancearray[k];
+			if (a<0) {
+				v2.setText(String.valueOf(-a));
+				v3.setText(null);
+			}
+			else {
+				v3.setText(String.valueOf(a));
+				v2.setText(null);
 			}			
 		}
-    	for (int j=countmembers; j<5; j++) {
-    		View nameV;
-    		View balanceV;
-    		View getV;
-			if (j==0) { nameV = findViewById(R.id.nameText1); balanceV = findViewById(R.id.payText1); getV = findViewById(R.id.getText1); }
-			else if (j==1) { nameV = findViewById(R.id.nameText2); balanceV = findViewById(R.id.payText2); getV = findViewById(R.id.getText2); }
-			else if (j==2) { nameV = findViewById(R.id.nameText3); balanceV = findViewById(R.id.payText3); getV = findViewById(R.id.getText3); }
-			else if (j==3) { nameV = findViewById(R.id.nameText4); balanceV = findViewById(R.id.payText4); getV = findViewById(R.id.getText4); }
-			else { nameV = findViewById(R.id.nameText5); balanceV = findViewById(R.id.payText5); getV = findViewById(R.id.getText5); }
-			nameV.setVisibility(View.GONE);
-			balanceV.setVisibility(View.GONE);
-			getV.setVisibility(View.GONE);
-    	}
+		Log.i("sameer", "hello5");
     }
     
     public void cashTransfer(View v) {
@@ -166,6 +202,10 @@ public class GroupSummaryActivity extends Activity {
     	startActivity(intent);
     }
     
+    public void showHistory(View v){
+    	
+    }
+    
     public void nullify(View v){
     	SQLiteDatabase groupDb=null;
     	String database="Database_"+grpId;
@@ -179,6 +219,7 @@ public class GroupSummaryActivity extends Activity {
         	if(groupDb!=null)
         		groupDb.close();
         }
+    	this.onRestart();
     }
     
     public void editGroup(View v){
