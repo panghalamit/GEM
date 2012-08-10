@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.NavUtils;
 import android.text.InputType;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
@@ -104,27 +106,33 @@ public class NewGroupActivity extends Activity {
 		tl.addView(tr,new TableLayout.LayoutParams(
 				LayoutParams.FILL_PARENT,
 				LayoutParams.WRAP_CONTENT));
-		
-		//((ScrollView) findViewById(R.id.NewGroupScroller)).fullScroll(View.FOCUS_DOWN);
-		// Bhandari Now this works but i prefer the old way
-		/*if (numberMembers > 2) {
-			int index = tl.indexOfChild(tr);
-			TableRow tr2 = (TableRow)tl.getChildAt(index-1);
-			ImageButton ibRemove = (ImageButton) tr2.getChildAt(2);
-			tr2.removeView(ibRemove);
-		}*/
+		focusScroll();
 	}
+	
+	private void focusScroll(){
+		/*final ScrollView sv = (ScrollView)findViewById(R.id.NewGroupScroller);
+		final Button b = (Button)findViewById(R.id.doneButtonNewGroup);
+		sv.post(new Runnable() {
+			public void run() {
+				sv.scrollTo(0,b.getBottom());
+			}
+		});*/
+		new Handler().postDelayed(new Runnable() {            
+            public void run() {
+                ScrollView sv = (ScrollView)findViewById(R.id.NewGroupScroller);
+                sv.scrollTo(0, sv.getBottom());
+            }
+        },0);
+    }
 
 	public void removeMember(View v) {
 		TableLayout table = (TableLayout) findViewById(R.id.newGrouptableLayout);
 		TableRow tr = (TableRow)findViewById(v.getId()-100);
 		int index = table.indexOfChild(tr);
-		//Log.i("tablesameer", String.valueOf(index));
 		table.removeView(tr);
 		TableRow tr2 = (TableRow)table.getChildAt(index-1);
 		EditText et = (EditText)tr2.getChildAt(1);
 		et.requestFocus();
-		//Log.i("tablesameer33", et.getText().toString());
 		numberMembers--;
 	}
 

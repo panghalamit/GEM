@@ -39,7 +39,6 @@
     <string name="nullify">Nullify</string>
     <string name="title_activity_add_event">AddEventActivity</string>
     <string name="title_activity_possible_solution">PossibleSolution</string>
-    <string name="title_activity_consumption">ConsumptionActivity</string>
     <string name="done_button1">Done</string>
     <string name="title_activity_error_main">ErrorMain</string>
     <string name="title_activity_events">Events</string>
@@ -47,5 +46,11 @@
     <string name="done_button2">Done</string>
     <string name="add_button">Add another</string>
     <string name="share_button">Share</string>
-
+    <string name="paid">Paid</string>
+    <string name="nextButton">Next</string>
+    <string name="addButton">Add</string>
+    <string name="back">Back</string>
+    <string name="share">Share</string>
+    <string name="consumption">Consumption</string>
+	<string name="payment">Payment</string>
 </resources>
