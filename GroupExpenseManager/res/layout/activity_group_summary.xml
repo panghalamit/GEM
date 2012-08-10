@@ -36,7 +36,8 @@
         android:layout_below="@+id/textView1"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="50dp"
-        android:text="@string/addevent" />
+        android:text="@string/addevent" 
+        android:onClick="toAddEvent"/>
     
     <Button
         android:id="@+id/button2"

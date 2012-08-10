@@ -1,18 +1,43 @@
 package com.example.groupexpensemanager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TableRow.LayoutParams;
+import android.text.InputType;
 
 public class AddEventActivity extends Activity {
-
+	public String gpName = "";
+	private Spinner spin;
+	private int IdNum = 0;
+	private List<String> list = new ArrayList<String>();
+	public final static String GROUP_NAME = "";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+        
+        Intent  intent = getIntent();
+    	gpName = intent.getStringExtra(GroupsActivity.GROUP_NAME);
+
+    	MemberList(gpName);
+    	spin = (Spinner) findViewById(R.id.memberSpinner);
+    	
+    	addItemsOnSpinner(spin);
+    	
     }
 
     @Override
@@ -20,6 +45,42 @@ public class AddEventActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_add_event, menu);
         return true;
     }
+    
+    public void MemberList(String GroupName){
+    	int databaseId=GroupNameToDatabaseId(GroupName);
+    	String gdName="Database_"+databaseId;
+    	SQLiteDatabase groupDb=null;
+    	int count=0;
+        
+        String[] name = new String[5];
+        
+    	try{
+	        groupDb = this.openOrCreateDatabase(gdName, MODE_PRIVATE, null);
+	        Cursor mquery = groupDb.rawQuery("SELECT Name FROM " + MainActivity.MemberTable+";",null);
+	        //int count=0;
+	        //count = mquery.getCount();
+	        
+	        mquery.moveToFirst();
+		    do{
+		    	name[count] = mquery.getString(0);
+		    	count++;
+				}while(mquery.moveToNext());
+	        
+	        
+    	}catch(Exception e) {
+    		Log.e("Error", "Error", e);
+        }
+        finally{ 
+        	if(groupDb!=null)
+        		groupDb.close();
+        }
+    	
+    	for (int j=0; j<count; j++) {
+    		list.add(name[j]);
+    	}
+		
+    }
+    
     
     public int GroupNameToDatabaseId(String GroupName){
     	int databaseId=0;
@@ -37,6 +98,48 @@ public class AddEventActivity extends Activity {
         		commonDb.close();
         }
     	return databaseId;
+    }
+    public void addItemsOnSpinner(Spinner spin1) {
+     	 
+    	
+    	ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+    		android.R.layout.simple_spinner_item, list);
+    	dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    	spin1.setAdapter(dataAdapter);
+      }
+    
+    public void addMember(View v) {
+    	  /* Find Tablelayout defined in main.xml */
+        TableLayout tl = (TableLayout)findViewById(R.id.tableLayout1);
+        tl.setStretchAllColumns(true);
+        	 
+             /* Create a new row to be added. */
+             TableRow tr = new TableRow(v.getContext());
+        
+             //tr.setStyle(R.style.eventMemberStyle);
+             tr.setLayoutParams(new LayoutParams(
+                            LayoutParams.WRAP_CONTENT,
+                            LayoutParams.WRAP_CONTENT));
+                  /* Create a Button to be the row-content. */
+                  Spinner sp = new Spinner(this);
+                  sp.setPadding(10, 0, 15, 0);
+                  sp.setLayoutParams(new LayoutParams(
+                		  	LayoutParams.WRAP_CONTENT));
+                  tr.addView(sp);
+                  addItemsOnSpinner(sp);
+                  EditText et = new EditText(this);
+                  et.setPadding(15, 0, 10, 0);
+                  et.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+                  
+                  et.setLayoutParams(new LayoutParams(
+              		  	LayoutParams.WRAP_CONTENT));
+                  tr.addView(et);
+                 /* Add row to TableLayout. */
+         tl.addView(tr,new TableLayout.LayoutParams(
+                          LayoutParams.FILL_PARENT,
+                          LayoutParams.WRAP_CONTENT));	
+        
+    	
     }
     
     public int MemberNameToId(int GroupID,String member){

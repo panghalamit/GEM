@@ -130,5 +130,12 @@ public class GroupSummaryActivity extends Activity {
     	intent.putExtra(GroupsActivity.GROUP_NAME, grpName);
     	startActivity(intent);
     }
+    
+    public void toAddEvent(View v) {
+    	Intent intent = new Intent(this, AddEventActivity.class);
+    	intent.putExtra(GroupsActivity.GROUP_NAME, grpName);
+    	startActivity(intent);
+    }
 
 }
+	

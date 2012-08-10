@@ -55,6 +55,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.groupexpensemanager.GroupSummaryActivity" />
         </activity>
+        <activity
+            android:name=".ConsumptionActivity"
+            android:label="@string/title_activity_consumption" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.groupexpensemanager.AddEventActivity" />
+        </activity>
     </application>
 
 </manifest>

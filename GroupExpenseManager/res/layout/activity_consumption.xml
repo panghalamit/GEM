@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="#222222">
+  
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:scrollbars="vertical" >
+
+
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tableLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#222222"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp" >
+
+        <TableRow
+            android:id="@+id/c_memberRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="10dp"
+            android:stretchColumns="*" >
+
+            <TextView
+                android:id="@+id/c_consumedView1"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:text="@string/consumed"
+                android:textColor="#F2F5A9"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/c_sharedView2"
+                android:layout_weight="1"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:text="@string/share"
+                android:textColor="#F2F5A9"
+                android:textSize="30dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/c_memberRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+             <EditText
+                android:id="@+id/c_amountText1"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" >
+
+                <requestFocus />
+            </EditText>
+
+            <Spinner
+                android:id="@+id/c_memberSpinner"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+           
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/c_memberRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:paddingTop="10dp"
+            android:stretchColumns="*" >
+
+            <Button
+                android:id="@+id/c_addbutton"
+                
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:onClick="addMember"
+                android:text="@string/addButton" />
+            
+            <Button
+                android:id="@+id/c_backbutton"
+             
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:onClick="addMember"
+                android:text="@string/back" />
+
+            <Button
+                android:id="@+id/c_donebutton"
+               
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="@string/done" />
+        </TableRow>
+    </TableLayout>
+
+</ScrollView>
+</RelativeLayout>

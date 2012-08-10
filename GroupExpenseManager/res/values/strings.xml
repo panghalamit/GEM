@@ -38,5 +38,11 @@
     <string name="title_activity_cash_transfer">CashTransferActivity</string>
     <string name="amount">Amount</string>
     <string name="title_activity_add_event">AddEventActivity</string>
+    <string name="paid">Paid</string>
+    <string name="nextButton">Next</string>
+    <string name="addButton">Add</string>
+    <string name="title_activity_consumption">ConsumptionActivity</string>
+    <string name="back">Back</string>
+    <string name="share">Share</string>
 
 </resources>
