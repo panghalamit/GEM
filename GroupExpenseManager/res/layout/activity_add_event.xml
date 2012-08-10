@@ -1,4 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/addEventScroller"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_alignParentTop="true"
@@ -11,195 +12,166 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <ScrollView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/AddEventScroller1"
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/PaymentView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true" >
+            android:layout_marginTop="10dp"
+            android:text="@string/payment"
+            android:textColor="#F2F5A9"
+            android:textSize="30dp" />
 
-            <RelativeLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/PaymentView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/payment"
-                    android:textColor="#F2F5A9"
-                    android:textSize="30dp" />
-
-                <LinearLayout
-                    android:id="@+id/AddEventLinearLayout1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/PaymentView"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:id="@+id/paidView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/paid"
-                        android:textColor="#FFFFFF"
-                        android:textSize="25dp" />
-
-                    <TextView
-                        android:id="@+id/paidView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="60dp"
-                        android:text="@string/amount"
-                        android:textColor="#FFFFFF"
-                        android:textSize="25dp" />
-                </LinearLayout>
-
-                <TableLayout
-                    android:id="@+id/AddEventTableLayout1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/AddEventLinearLayout1"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp" >
-
-                    <TableRow>
-
-                        <Spinner
-                            android:id="@+id/addEventSpinner1"
-                            style="@style/spinnerStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <EditText
-                            android:id="@+id/addEventamountText1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="5"
-                            android:inputType="number" />
-                    </TableRow>
-                </TableLayout>
-
-                <Button
-                    android:id="@+id/addbuttonAddevent1"
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/AddEventTableLayout1"
-                    android:layout_marginLeft="60dp"
-                    android:onClick="addMember1"
-                    android:text="@string/addButton" />
-            </RelativeLayout>
-        </ScrollView>
-
-        <ScrollView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/AddEventScroller2"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:id="@+id/AddEventLinearLayout1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/AddEventScroller1"
-            android:layout_marginTop="20dp" >
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/PaymentView"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
 
-            <RelativeLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
+            <TextView
+                android:id="@+id/paidView1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:text="@string/paid"
+                android:textColor="#FFFFFF"
+                android:textSize="25dp" />
 
-                <TextView
-                    android:id="@+id/ConsumptionView"
+            <TextView
+                android:id="@+id/paidView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:text="@string/amount"
+                android:textColor="#FFFFFF"
+                android:textSize="25dp" />
+        </LinearLayout>
+
+        <TableLayout
+            android:id="@+id/AddEventTableLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/AddEventLinearLayout1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp" >
+
+            <TableRow>
+
+                <Spinner
+                    android:id="@+id/addEventSpinner1"
+                    style="@style/spinnerStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/consumption"
-                    android:textColor="#F2F5A9"
-                    android:textSize="30dp" />
+                    android:layout_height="wrap_content" />
 
-                <LinearLayout
-                    android:id="@+id/AddEventLinearLayout2"
+                <EditText
+                    android:id="@+id/addEventamountText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:inputType="number" />
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/addbuttonAddevent1"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/AddEventTableLayout1"
+            android:layout_marginLeft="60dp"
+            android:onClick="addMember1"
+            android:text="@string/addButton" />
+
+        <TextView
+            android:id="@+id/ConsumptionView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addbuttonAddevent1"
+            android:layout_marginTop="20dp"
+            android:text="@string/consumption"
+            android:textColor="#F2F5A9"
+            android:textSize="30dp" />
+
+        <LinearLayout
+            android:id="@+id/AddEventLinearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/ConsumptionView"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/ConsumptionView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/amount"
+                android:textColor="#FFFFFF"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/ConsumptionView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:text="@string/share"
+                android:textColor="#FFFFFF"
+                android:textSize="25dp" />
+        </LinearLayout>
+
+        <TableLayout
+            android:id="@+id/AddEventTableLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/AddEventLinearLayout2"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp" >
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/addEventamountText2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:inputType="number" />
+
+                <Spinner
+                    android:id="@+id/addEventSpinner2"
+                    style="@style/spinnerStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/ConsumptionView"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal" >
+                    android:layout_height="wrap_content" />
+            </TableRow>
+        </TableLayout>
 
-                    <TextView
-                        android:id="@+id/ConsumptionView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/amount"
-                        android:textColor="#FFFFFF"
-                        android:textSize="25dp" />
+        <Button
+            android:id="@+id/addbuttonAddevent2"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/AddEventTableLayout2"
+            android:layout_marginLeft="60dp"
+            android:onClick="addMember2"
+            android:text="@string/addButton" />
 
-                    <TextView
-                        android:id="@+id/ConsumptionView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="60dp"
-                        android:text="@string/share"
-                        android:textColor="#FFFFFF"
-                        android:textSize="25dp" />
-                </LinearLayout>
-
-                <TableLayout
-                    android:id="@+id/AddEventTableLayout2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/AddEventLinearLayout2"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp" >
-
-                    <TableRow>
-
-                        <EditText
-                            android:id="@+id/addEventamountText2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="5"
-                            android:inputType="number" />
-
-                        <Spinner
-                            android:id="@+id/addEventSpinner2"
-                            style="@style/spinnerStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </TableRow>
-                </TableLayout>
-
-                <Button
-                    android:id="@+id/addbuttonAddevent2"
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/AddEventTableLayout2"
-                    android:layout_marginLeft="60dp"
-                    android:onClick="addMember2"
-                    android:text="@string/addButton" />
-
-                <Button
-                    android:id="@+id/donebuttonAddevent"
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/addbuttonAddevent2"
-                    android:layout_marginRight="10dp"
-                    android:onClick="doneAddEvent"
-                    android:text="@string/done" />
-            </RelativeLayout>
-        </ScrollView>
+        <Button
+            android:id="@+id/donebuttonAddevent"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/addbuttonAddevent2"
+            android:layout_marginRight="10dp"
+            android:onClick="doneAddEvent"
+            android:text="@string/done" />
     </RelativeLayout>
 
 </ScrollView>

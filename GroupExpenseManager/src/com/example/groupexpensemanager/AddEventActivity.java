@@ -115,10 +115,10 @@ public class AddEventActivity extends Activity {
 		addScroll1();
 	}
 	
-	private final void addScroll1(){
+	private void addScroll1(){
         new Handler().postDelayed(new Runnable() {            
             public void run() {
-                ScrollView sv = (ScrollView)findViewById(R.id.AddEventScroller1);
+                ScrollView sv = (ScrollView)findViewById(R.id.addEventScroller);
                 sv.scrollTo(0, sv.getBottom());
             }
         },0);
@@ -153,10 +153,10 @@ public class AddEventActivity extends Activity {
 				LayoutParams.WRAP_CONTENT));	
 		addScroll2();
 	}
-	private final void addScroll2(){
+	private void addScroll2(){
         new Handler().postDelayed(new Runnable() {            
             public void run() {
-                ScrollView sv = (ScrollView)findViewById(R.id.AddEventScroller2);
+                ScrollView sv = (ScrollView)findViewById(R.id.addEventScroller);
                 sv.scrollTo(0, sv.getBottom());
             }
         },0);
