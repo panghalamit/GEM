@@ -39,10 +39,10 @@ public class AddEventActivity extends Activity {
 		this.setTitle(new_title);
 		setContentView(R.layout.activity_add_event);
 		MemberList();
-		Spinner spin1 = (Spinner) findViewById(R.id.addEventSpinner1);
-		Spinner spin2 = (Spinner) findViewById(R.id.addEventSpinner2);
-		addItemsOnSpinner(spin1);
-		addItemsOnSpinner(spin2);
+		addMember1(null);
+		addMember2(null);
+		EditText event = (EditText) findViewById(R.id.AddEventEventName);
+		event.requestFocus();
 	}
 
 	@Override

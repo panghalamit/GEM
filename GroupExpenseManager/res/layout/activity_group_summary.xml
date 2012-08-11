@@ -64,50 +64,50 @@
                 android:text="@string/cashtransfer" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/groupSummaryLinearLayoutMiddle"
+            android:layout_below="@+id/groupSummaryLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp" >
+
+            <TextView
+                android:id="@+id/MemberNametextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/groupsummaryname"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/ToPaytextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:text="@string/topay"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/ToGettextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:text="@string/toget"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
         <TableLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/groupSummaryTableLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/groupSummaryLinearLayout"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="20dp" >
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:paddingBottom="5dp"
-                android:stretchColumns="*" >
-
-                <TextView
-                    android:id="@+id/MemberNametextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/name"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#ffffff" />
-
-                <TextView
-                    android:id="@+id/ToPaytextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/topay"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#ffffff" />
-
-                <TextView
-                    android:id="@+id/ToGettextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/toget"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#ffffff" />
-            </TableRow>
+            android:layout_below="@+id/groupSummaryLinearLayoutMiddle"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp" >
         </TableLayout>
 
         <LinearLayout

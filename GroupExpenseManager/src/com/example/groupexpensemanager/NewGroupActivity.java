@@ -27,12 +27,24 @@ import android.widget.Toast;
 @TargetApi(11)
 public class NewGroupActivity extends Activity {
 
-	public int numberMembers = 1;
+	public int numberMembers = 0;
+	public float scale = 0;
+	public TableLayout newgrouptable = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_group);
+		newgrouptable = (TableLayout)findViewById(R.id.newGrouptableLayout);
+		scale = newgrouptable.getContext().getResources().getDisplayMetrics().density;
+		TableRow tr = addmemberhelper("Group Name");
+		newgrouptable.addView(tr,new TableLayout.LayoutParams(
+				LayoutParams.FILL_PARENT,
+				LayoutParams.WRAP_CONTENT));
+		addMember(null);
+		addMember(null);
+		tr.requestFocus();
+		
 	}
 
 	@Override
@@ -54,20 +66,26 @@ public class NewGroupActivity extends Activity {
 
 	public void addMember(View v) {
 		numberMembers++;
-		TableLayout tl = (TableLayout)findViewById(R.id.newGrouptableLayout);
+		TableRow tr = addmemberhelper("Member");
+		
+		tr.requestFocus();
+		newgrouptable.addView(tr,new TableLayout.LayoutParams(
+				LayoutParams.FILL_PARENT,
+				LayoutParams.WRAP_CONTENT));
+		focusScroll();
+	}
+	public TableRow addmemberhelper(String text1){
 		TableRow tr = new TableRow(this);
 		tr.setLayoutParams(new LayoutParams(
-			LayoutParams.WRAP_CONTENT,
-			LayoutParams.WRAP_CONTENT)
-		);
-		final float scale = tl.getContext().getResources().getDisplayMetrics().density;
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT)
+				);
 		int ten = (int) (10 * scale + 0.5f);
 		int five = (int) (5 * scale + 0.5f);
 		tr.setPadding(0, five, 0, ten);
-		tr.setId(numberMembers+100);
 		//Add a TextView
 		TextView tv = new TextView(this);
-		tv.setText("Member");
+		tv.setText(text1);
 		tv.setTextColor(Color.parseColor("#FFFFFF"));
 		LayoutParams l1 = new LayoutParams(
 				LayoutParams.MATCH_PARENT,
@@ -76,7 +94,7 @@ public class NewGroupActivity extends Activity {
 		l1.setMargins(0, ten, ten, 0);
 		tv.setLayoutParams(l1);
 		tr.addView(tv);
-		
+
 		//Add a Text Field
 		EditText et = new EditText(this);
 		et.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
@@ -89,26 +107,24 @@ public class NewGroupActivity extends Activity {
 		tr.addView(et);
 		
 		//Add the minus button
-		ImageButton ib = new ImageButton(this);
-		ib.setBackgroundResource(R.drawable.minus_back);
-		ib.setId(numberMembers+200);
-		int pixels = (int) (50 * scale + 0.5f);
-		LayoutParams l3 = new LayoutParams(pixels, pixels, 0.1f);
-		ib.setLayoutParams(l3);
-		ib.setOnClickListener(new View.OnClickListener() {
+		if(numberMembers>2){
+			ImageButton ib = new ImageButton(this);
+			ib.setBackgroundResource(R.drawable.minus_back);
+			int pixels = (int) (50 * scale + 0.5f);
+			LayoutParams l3 = new LayoutParams(pixels, pixels, 0.1f);
+			ib.setLayoutParams(l3);
+			ib.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {
-				removeMember(v);
-			}
-		});
-		tr.addView(ib);
-		tr.requestFocus();
-		tl.addView(tr,new TableLayout.LayoutParams(
-				LayoutParams.FILL_PARENT,
-				LayoutParams.WRAP_CONTENT));
-		focusScroll();
+				public void onClick(View v) {
+					removeMember(v);
+				}
+			});
+			tr.addView(ib);
+		}
+				
+		return tr;
 	}
-	
+
 	private void focusScroll(){
 		new Handler().postDelayed(new Runnable() {            
             public void run() {
@@ -120,11 +136,10 @@ public class NewGroupActivity extends Activity {
     }
 
 	public void removeMember(View v) {
-		TableLayout table = (TableLayout) findViewById(R.id.newGrouptableLayout);
-		TableRow tr = (TableRow)findViewById(v.getId()-100);
-		int index = table.indexOfChild(tr);
-		table.removeView(tr);
-		TableRow tr2 = (TableRow)table.getChildAt(index-1);
+		TableRow tr = (TableRow) v.getParent();
+		int index = newgrouptable.indexOfChild(tr);
+		newgrouptable.removeView(tr);
+		TableRow tr2 = (TableRow)newgrouptable.getChildAt(index-1);
 		EditText et = (EditText)tr2.getChildAt(1);
 		et.requestFocus();
 		numberMembers--;
@@ -140,7 +155,7 @@ public class NewGroupActivity extends Activity {
 	}
 
 	public void done(View v) {
-		EditText editText = (EditText) findViewById(R.id.NewGroupgrpText);
+		EditText editText = (EditText) (((ViewGroup) newgrouptable.getChildAt(0)).getChildAt(1));
 		String group_name = editText.getText().toString();
 		if(group_name.equals("")){
 			Toast n = Toast.makeText(NewGroupActivity.this,"Error! Cannot leave the Group Name empty", Toast.LENGTH_SHORT);
@@ -152,10 +167,9 @@ public class NewGroupActivity extends Activity {
 		for(int j=0;j<numberMembers;j++){
 			members[j]="";
 		}
-		TableLayout table = (TableLayout) findViewById(R.id.newGrouptableLayout);
 		for (int k=0; k<numberMembers; k++) {
 			EditText editTextMember;
-			editTextMember = (EditText) (((ViewGroup) table.getChildAt(k+1)).getChildAt(1));
+			editTextMember = (EditText) (((ViewGroup) newgrouptable.getChildAt(k+1)).getChildAt(1));
 			String temp = editTextMember.getText().toString();
 			if (temp.equals("")){
 				Toast n = Toast.makeText(NewGroupActivity.this,"Error! Cannot leave Member Name empty", Toast.LENGTH_SHORT);

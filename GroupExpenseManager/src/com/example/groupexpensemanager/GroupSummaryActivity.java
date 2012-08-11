@@ -88,18 +88,15 @@ public class GroupSummaryActivity extends Activity {
     }
     
     public void MemberListWithBalance(){
-    	Log.i("sameer", "hello1");
     	String gdName="Database_"+grpId;
     	SQLiteDatabase groupDb=null;
     	countmembers=0;
-        namearray = new String[10];
-        idarray = new int[10];
-        balancearray = new float[10];
-        Log.i("sameer", "hello2");
     	try{
     		groupDb = this.openOrCreateDatabase(gdName, MODE_PRIVATE, null);
 	        Cursor mquery = groupDb.rawQuery("SELECT * FROM " + MainActivity.MemberTable+";",null);
-	        	        
+	        namearray = new String[mquery.getCount()];
+	        idarray = new int[mquery.getCount()];
+	        balancearray = new float[mquery.getCount()];
 	        mquery.moveToFirst();
 		    do{
 		    	idarray[countmembers] = mquery.getInt(0);
@@ -116,7 +113,6 @@ public class GroupSummaryActivity extends Activity {
         	if(groupDb!=null)
         		groupDb.close();
         }
-    	Log.i("sameer", "hello3");
     }
     
     public void fillEntryInTable(){
@@ -166,11 +162,9 @@ public class GroupSummaryActivity extends Activity {
     }
     
     public void correctEntryInTable(){
-    	Log.i("sameer", "hello4");
     	TableLayout table = (TableLayout) findViewById(R.id.groupSummaryTableLayout);
 		for (int k=0; k<countmembers; k++) {
-			Log.i("sameer", String.valueOf(k));
-			TableRow tr2 = (TableRow)table.getChildAt(k+1);
+			TableRow tr2 = (TableRow)table.getChildAt(k);
 			TextView v1 = (TextView) (tr2.getChildAt(0));
 			TextView v2 = (TextView) (tr2.getChildAt(1));
 			TextView v3 = (TextView) (tr2.getChildAt(2));
@@ -185,7 +179,6 @@ public class GroupSummaryActivity extends Activity {
 				v2.setText(null);
 			}			
 		}
-		Log.i("sameer", "hello5");
     }
     
     public void cashTransfer(View v) {
@@ -226,7 +219,11 @@ public class GroupSummaryActivity extends Activity {
     }
     
     public void editGroup(View v){
-    	
+    	Intent intent = new Intent(this, EditGroupActivity.class);
+    	intent.putExtra(GroupsActivity.GROUP_NAME, grpName);
+    	intent.putExtra(GroupsActivity.GROUP_ID, grpId);
+    	intent.putExtra(listofmember, namearray);
+    	startActivity(intent);
     }
 
     public void toAddEvent(View v) {

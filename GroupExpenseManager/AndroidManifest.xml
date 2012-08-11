@@ -58,7 +58,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.groupexpensemanager.GroupSummaryActivity" />
-		</activity>
+        </activity>
+        <activity
+            android:name=".EditGroupActivity"
+            android:label="@string/title_activity_edit_group" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.groupexpensemanager.GroupSummaryActivity" />
+        </activity>
     </application>
 
 </manifest>

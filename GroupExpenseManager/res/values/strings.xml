@@ -51,5 +51,7 @@
     <string name="back">Back</string>
     <string name="share">Share</string>
     <string name="consumption">Consumption</string>
-	<string name="payment">Payment</string>
+    <string name="payment">Payment</string>
+    <string name="title_activity_edit_group">Edit</string>
+	<string name="groupsummaryname">Name</string>
 </resources>

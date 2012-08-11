@@ -1,5 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/NewGroupScroller"
+    android:id="@+id/EditGroupScroller"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_alignParentTop="true"
@@ -13,29 +13,27 @@
 
         <TableLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/newGrouptableLayout"
+            android:id="@+id/EditGrouptableLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="20dp" >
-
-            
         </TableLayout>
 
         <LinearLayout
-            android:id="@+id/newGroupLinearLayout"
+            android:id="@+id/EditGroupLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/newGrouptableLayout"
+            android:layout_below="@id/EditGrouptableLayout"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/addButtonNewGroup"
+                android:id="@+id/addButtonEditGroup"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -44,7 +42,7 @@
                 android:textSize="13dp" />
 
             <Button
-                android:id="@+id/doneButtonNewGroup"
+                android:id="@+id/doneButtonEditGroup"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"

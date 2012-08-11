@@ -87,21 +87,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp" >
 
-            <TableRow>
-
-                <Spinner
-                    android:id="@+id/addEventSpinner1"
-                    style="@style/spinnerStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <EditText
-                    android:id="@+id/addEventamountText1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:inputType="number" />
-            </TableRow>
+            
         </TableLayout>
 
         <Button
@@ -163,22 +149,6 @@
             android:layout_below="@+id/AddEventLinearLayout2"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp" >
-
-            <TableRow>
-
-                <EditText
-                    android:id="@+id/addEventamountText2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:inputType="number" />
-
-                <Spinner
-                    android:id="@+id/addEventSpinner2"
-                    style="@style/spinnerStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </TableRow>
         </TableLayout>
 
         <Button
