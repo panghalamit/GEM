@@ -140,9 +140,9 @@ public class NewGroupActivity extends Activity {
 	}
 
 	public void done(View v) {
-		EditText editText = (EditText) findViewById(R.id.grpText);
-		String message = editText.getText().toString();
-		if(message.equals("")){
+		EditText editText = (EditText) findViewById(R.id.NewGroupgrpText);
+		String group_name = editText.getText().toString();
+		if(group_name.equals("")){
 			Toast n = Toast.makeText(NewGroupActivity.this,"Error! Cannot leave the Group Name empty", Toast.LENGTH_SHORT);
 			n.setGravity(Gravity.CENTER_VERTICAL,0,0);
 			n.show();
@@ -173,7 +173,7 @@ public class NewGroupActivity extends Activity {
 				members[k] = temp;
 			}
 		}
-		insertToDatabase(message, members);
+		insertToDatabase(group_name, members);
 	}
 
 	public void insertToDatabase(String groupName, String[] members) {

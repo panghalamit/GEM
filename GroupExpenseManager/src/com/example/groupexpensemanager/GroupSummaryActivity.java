@@ -36,6 +36,8 @@ public class GroupSummaryActivity extends Activity {
         Intent intent = getIntent();
         grpName = intent.getStringExtra(GroupsActivity.GROUP_NAME);
         grpId=GroupNameToDatabaseId(grpName);
+        String new_title= grpName+" - "+String.valueOf(this.getTitle());
+		this.setTitle(new_title);
         setContentView(R.layout.activity_group_summary);
         TextView header = (TextView) findViewById(R.id.groupNametextView);
         header.setText(grpName);
@@ -195,6 +197,7 @@ public class GroupSummaryActivity extends Activity {
     
     public void showSolution(View v){
     	Intent intent = new Intent(this, PossibleSolution.class);
+    	intent.putExtra(GroupsActivity.GROUP_NAME, grpName);
     	intent.putExtra(listofid, idarray);
     	intent.putExtra(listofmember, namearray);
     	intent.putExtra(listofbalance, balancearray);

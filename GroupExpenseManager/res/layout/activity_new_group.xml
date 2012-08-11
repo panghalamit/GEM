@@ -21,7 +21,6 @@
             android:paddingTop="20dp" >
 
             <TableRow
-                android:id="@+id/tableRow1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
@@ -29,7 +28,6 @@
                 android:stretchColumns="*" >
 
                 <TextView
-                    android:id="@+id/textView1"
                     style="@style/newGrpPage2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -39,16 +37,15 @@
                     android:textSize="14dp" />
 
                 <EditText
-                    android:id="@+id/grpText"
+                    android:id="@+id/NewGroupgrpText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="50dp"
-                    android:layout_weight="1.5"
+                    android:layout_weight="1"
                     android:inputType="none|text|textPersonName" />
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
@@ -57,7 +54,6 @@
                 android:visibility="visible" >
 
                 <TextView
-                    android:id="@+id/TextView00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -68,22 +64,12 @@
                     android:textSize="14dp" />
 
                 <EditText
-                    android:id="@+id/member1Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="9dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="5"
+                    android:layout_marginRight="50dp"
+                    android:layout_weight="1"
                     android:inputType="text|textPersonName" />
-
-                <CheckBox
-                    android:id="@+id/checkBox1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:text="@string/me"
-                    android:textColor="#ffffff"
-                    android:textSize="6pt" />
             </TableRow>
         </TableLayout>
 

@@ -19,11 +19,15 @@ public class PossibleSolution extends Activity {
 	public int[] idarray;
 	public int countmembers;
 	public String[][] solutionarray;
+	public String groupName="";
 	public int ntransactions = 0;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
+		groupName=intent.getStringExtra(GroupsActivity.GROUP_NAME);
+		String new_title= groupName+" - "+String.valueOf(this.getTitle());
+		this.setTitle(new_title);
 		idarray = intent.getIntArrayExtra(GroupSummaryActivity.listofid);
 		balancearray = intent.getFloatArrayExtra(GroupSummaryActivity.listofbalance);
 		namearray = intent.getStringArrayExtra(GroupSummaryActivity.listofmember);

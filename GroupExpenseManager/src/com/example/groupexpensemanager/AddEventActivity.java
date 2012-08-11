@@ -32,10 +32,12 @@ public class AddEventActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_add_event);
 		Intent  intent = getIntent();
 		grpName = intent.getStringExtra(GroupsActivity.GROUP_NAME);
 		grpid = intent.getIntExtra(GroupsActivity.GROUP_ID,0);
+		String new_title= grpName+" - "+String.valueOf(this.getTitle());
+		this.setTitle(new_title);
+		setContentView(R.layout.activity_add_event);
 		MemberList();
 		Spinner spin1 = (Spinner) findViewById(R.id.addEventSpinner1);
 		Spinner spin2 = (Spinner) findViewById(R.id.addEventSpinner2);
@@ -109,23 +111,23 @@ public class AddEventActivity extends Activity {
 				LayoutParams.WRAP_CONTENT));
 		tr.addView(et);
 		tr.requestFocus();
-		
+
 		tl.addView(tr,new TableLayout.LayoutParams(
 				LayoutParams.FILL_PARENT,
 				LayoutParams.WRAP_CONTENT));
 		addScroll1();
 	}
-	
+
 	private void addScroll1(){
-        new Handler().postDelayed(new Runnable() {            
-            public void run() {
-                Button b = (Button)findViewById(R.id.addbuttonAddevent1);
-            	ScrollView sv = (ScrollView)findViewById(R.id.addEventScroller);
-                sv.scrollBy(0, b.getHeight());
-            }
-        },0);
-    }
-	
+		new Handler().postDelayed(new Runnable() {            
+			public void run() {
+				Button b = (Button)findViewById(R.id.addbuttonAddevent1);
+				ScrollView sv = (ScrollView)findViewById(R.id.addEventScroller);
+				sv.scrollBy(0, b.getHeight());
+			}
+		},0);
+	}
+
 	public void addMember2(View v) {
 		TableLayout tl = (TableLayout)findViewById(R.id.AddEventTableLayout2);
 		tl.setStretchAllColumns(true);
@@ -149,42 +151,20 @@ public class AddEventActivity extends Activity {
 		addItemsOnSpinner(sp);
 		tr.addView(sp);
 		tr.requestFocus();
-		
+
 		tl.addView(tr,new TableLayout.LayoutParams(
 				LayoutParams.FILL_PARENT,
 				LayoutParams.WRAP_CONTENT));	
 		addScroll2();
 	}
 	private void addScroll2(){
-        new Handler().postDelayed(new Runnable() {            
-            public void run() {
-            	Button b = (Button)findViewById(R.id.donebuttonAddevent);
-            	ScrollView sv = (ScrollView)findViewById(R.id.addEventScroller);
-                sv.scrollTo(0, b.getBottom());
-            }
-        },0);
-    }
-	public void doneAddEvent(View v){
-
-	}
-
-	public int MemberNameToId(String member){
-		int memberId=0;
-		String database="Database_"+grpid;
-		SQLiteDatabase commonDb=null;
-		try{
-			commonDb = this.openOrCreateDatabase(database, MODE_PRIVATE, null);
-			Cursor idquery = commonDb.rawQuery("SELECT ID FROM " + MainActivity.MemberTable +" WHERE Name = '"+member+"';", null);
-			idquery.moveToFirst();
-			memberId=idquery.getInt(0);
-		}catch(Exception e) {
-			Log.e("Error", "Error", e);
-		}
-		finally{ 
-			if(commonDb!=null)
-				commonDb.close();
-		}
-		return memberId;
+		new Handler().postDelayed(new Runnable() {            
+			public void run() {
+				Button b = (Button)findViewById(R.id.donebuttonAddevent);
+				ScrollView sv = (ScrollView)findViewById(R.id.addEventScroller);
+				sv.scrollTo(0, b.getBottom());
+			}
+		},0);
 	}
 
 	public float sumArray(float[] arr){
@@ -195,7 +175,7 @@ public class AddEventActivity extends Activity {
 		return sum;
 	}
 
-	public void addEvent(String eventName, float[] amountPaid, String[] paidMembers, float[] amountConsumed, boolean[][] whoConsumed){
+	public void addEvent(String eventName, float[] amountPaid, int[] paidMembers, float[] amountConsumed, boolean[][] whoConsumed){
 		if(sumArray(amountPaid)!=sumArray(amountConsumed)){
 			Toast n = Toast.makeText(AddEventActivity.this,"Error! Total paid amount != Total Amount Consumed", Toast.LENGTH_SHORT);
 			n.setGravity(Gravity.CENTER_VERTICAL,0,0);
@@ -226,9 +206,8 @@ public class AddEventActivity extends Activity {
 	        	ID2=count2.getInt(0)+1;
 	        }*/
 			for(int j=0;j<amountPaid.length;j++){
-				int mId=MemberNameToId(paidMembers[j]);
 				//groupDb.execSQL("INSERT INTO "+ MainActivity.TransTable + " ( ID, MemberId, Amount, EventId ) VALUES ( '" + ID2+"', '"+mId+"', '"+amountPaid[j]+"', '"+ID1+"' );" );
-				memberBalance[mId-1]+=amountPaid[j];
+				memberBalance[paidMembers[j]]+=amountPaid[j];
 				//ID2++;	        	
 			}
 			int share;
@@ -260,4 +239,45 @@ public class AddEventActivity extends Activity {
 				groupDb.close();
 		}
 	}
+
+	public void doneAddEvent(View v){
+		EditText event = (EditText) findViewById(R.id.AddEventEventName);
+		String eventname = event.getText().toString();
+		TableLayout t1 = (TableLayout) findViewById(R.id.AddEventTableLayout1);
+		float[] amountpaid = new float[t1.getChildCount()];
+		int[] paidmembers = new int[t1.getChildCount()];
+		for (int k=0; k<t1.getChildCount(); k++) {
+			TableRow tr = (TableRow) t1.getChildAt(k);
+			EditText et = (EditText) tr.getChildAt(1);
+			Spinner sp = (Spinner) tr.getChildAt(0); 
+			String amt = et.getText().toString();
+			if(amt.equals("")){
+				amountpaid[k]=0;
+			}
+			else{
+				amountpaid[k]=Float.valueOf(amt);
+			}
+			paidmembers[k]=sp.getSelectedItemPosition();
+			/*if (amt.equals("")){
+				Toast n = Toast.makeText(AddEventActivity.this,"Error! Cannot leave Amount empty", Toast.LENGTH_SHORT);
+				n.setGravity(Gravity.CENTER_VERTICAL,0,0);
+				n.show();
+				return;
+			}*/
+		}
+		TableLayout t2 = (TableLayout) findViewById(R.id.AddEventTableLayout2);
+		float[] amountconsumed = new float[t2.getChildCount()];
+		for (int k=0; k<t2.getChildCount(); k++) {
+			TableRow tr = (TableRow) t2.getChildAt(k);
+			EditText et = (EditText) tr.getChildAt(0);
+			String amt = et.getText().toString();
+			if(amt.equals("")){
+				amountconsumed[k]=0;
+			}
+			else{
+				amountconsumed[k]=Float.valueOf(amt);
+			}
+		}
+	}
+
 }

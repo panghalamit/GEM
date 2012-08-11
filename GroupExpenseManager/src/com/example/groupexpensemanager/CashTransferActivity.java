@@ -26,18 +26,17 @@ public class CashTransferActivity extends Activity {
 	private Button btnDone;
 	private List<String> list = new ArrayList<String>();
 
-	public final static String GROUP_NAME = "";
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_cash_transfer);
 
-		Intent  intent = getIntent();
+		Intent intent = getIntent();
 		grpName = intent.getStringExtra(GroupsActivity.GROUP_NAME);
+		String new_title= grpName+" - "+String.valueOf(this.getTitle());
+		this.setTitle(new_title);
 		grpid = intent.getIntExtra(GroupsActivity.GROUP_ID,0);
+		setContentView(R.layout.activity_cash_transfer);
 		MemberList();
-
 		addItemsOnSpinner1();
 		addItemsOnSpinner2();
 		addListenerOnButton();
@@ -70,29 +69,8 @@ public class CashTransferActivity extends Activity {
 		}
 	}
 
-	public int MemberNameToId(String member){
-		int memberId=0;
-		String database="Database_"+grpid;
-		SQLiteDatabase commonDb=null;
-		try{
-			commonDb = this.openOrCreateDatabase(database, MODE_PRIVATE, null);
-			Cursor idquery = commonDb.rawQuery("SELECT ID FROM " + MainActivity.MemberTable +" WHERE Name = '"+member+"';", null);
-			idquery.moveToFirst();
-			memberId=idquery.getInt(0);
-		}catch(Exception e) {
-			Log.e("Error", "Error", e);
-		}
-		finally{ 
-			if(commonDb!=null)
-				commonDb.close();
-		}
-		return memberId;
-	}
+	public void CashTransfer(int fromMember, int toMember, float amount){
 
-	public void CashTransfer(String fromM, String toM, float amount){
-
-		int fromMember=MemberNameToId(fromM);
-		int toMember=MemberNameToId(toM);
 		SQLiteDatabase groupDb=null;
 		String database="Database_"+grpid;
 		//int ID=1;
@@ -118,7 +96,7 @@ public class CashTransferActivity extends Activity {
 
 	public void addItemsOnSpinner1() {
 
-		spin1 = (Spinner) findViewById(R.id.spinner1);
+		spin1 = (Spinner) findViewById(R.id.cashTransferspinner1);
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, list);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -127,7 +105,7 @@ public class CashTransferActivity extends Activity {
 
 	public void addItemsOnSpinner2() {
 
-		spin2 = (Spinner) findViewById(R.id.spinner2);
+		spin2 = (Spinner) findViewById(R.id.cashTransferspinner2);
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, list);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -135,9 +113,7 @@ public class CashTransferActivity extends Activity {
 	}
 
 	public void addListenerOnButton() {
-		spin1 = (Spinner) findViewById(R.id.spinner1);
-		spin2 = (Spinner) findViewById(R.id.spinner2);
-		btnDone = (Button) findViewById(R.id.button1);
+		btnDone = (Button) findViewById(R.id.cashTransferDoneButton);
 		btnDone.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				transferDone();
@@ -146,13 +122,11 @@ public class CashTransferActivity extends Activity {
 	}
 	
 	public void transferDone() {
-		String fM = String.valueOf(spin1.getSelectedItem());
-		String tM = String.valueOf(spin2.getSelectedItem());
-
+		int fM = spin1.getSelectedItemPosition()+1;
+		int tM = spin2.getSelectedItemPosition()+1;
 		EditText editText;
-		editText = (EditText) findViewById(R.id.amountText);
+		editText = (EditText) findViewById(R.id.cashTransferamountText);
 		float a = Float.valueOf(editText.getText().toString());
-
 		CashTransfer(fM, tM, a);
 		this.finish();	
 	}

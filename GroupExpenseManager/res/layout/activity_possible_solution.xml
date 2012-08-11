@@ -11,8 +11,8 @@
         android:id="@+id/fromtopossiblesolution"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:stretchColumns="*" >
 
@@ -30,27 +30,24 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff" />
 
-		<TextView
-		    android:id="@+id/solutionAmount"
-		    android:layout_weight="1"
-		    android:text="@string/amount"
-		    android:textAppearance="?android:attr/textAppearanceLarge"
-		    android:textColor="#ffffff" />
-
+        <TextView
+            android:id="@+id/solutionAmount"
+            android:layout_weight="1"
+            android:text="@string/amount"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffff" />
     </TableRow>
-  <ScrollView
 
-    android:id="@+id/TableScrollerPossibleSolution"
+    <ScrollView
+        android:id="@+id/TableScrollerPossibleSolution"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-    <TableLayout
+        <TableLayout
+            android:id="@+id/PossibeSolutionTable"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0,1,2" />
+    </ScrollView>
 
-      android:id="@+id/PossibeSolutionTable"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:stretchColumns="0,1,2" />
-
-  </ScrollView>
-    
 </TableLayout>
