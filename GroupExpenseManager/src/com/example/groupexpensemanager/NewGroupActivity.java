@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
@@ -44,6 +45,8 @@ public class NewGroupActivity extends Activity {
 		addMember(null);
 		addMember(null);
 		tr.requestFocus();
+		getWindow().setSoftInputMode(
+				   WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		
 	}
 

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +44,8 @@ public class AddEventActivity extends Activity {
 		addMember2(null);
 		EditText event = (EditText) findViewById(R.id.AddEventEventName);
 		event.requestFocus();
+		getWindow().setSoftInputMode(
+				   WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
 
 	@Override

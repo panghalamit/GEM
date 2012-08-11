@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,6 +41,8 @@ public class CashTransferActivity extends Activity {
 		addItemsOnSpinner1();
 		addItemsOnSpinner2();
 		addListenerOnButton();
+		getWindow().setSoftInputMode(
+				   WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
 
 	@Override
