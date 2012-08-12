@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +17,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,7 +32,13 @@ import android.widget.Toast;
 public class AddEventActivity extends Activity {
 	public String grpName = "";
 	public int grpid = 0;
+	private String[] namearray =null;
 	private List<String> list = new ArrayList<String>();
+	private List<boolean[]> checkedItems = null;
+	private boolean[] tempCheckedItems = null;
+	private CharSequence[] items;
+	
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,10 +46,14 @@ public class AddEventActivity extends Activity {
 		Intent  intent = getIntent();
 		grpName = intent.getStringExtra(GroupsActivity.GROUP_NAME);
 		grpid = intent.getIntExtra(GroupsActivity.GROUP_ID,0);
+		namearray = intent.getStringArrayExtra(GroupSummaryActivity.listofmember);
 		String new_title= grpName+" - "+String.valueOf(this.getTitle());
 		this.setTitle(new_title);
 		setContentView(R.layout.activity_add_event);
+		checkedItems = new ArrayList<boolean[]>();
+		
 		MemberList();
+		
 		addMember1(null);
 		addMember2(null);
 		EditText event = (EditText) findViewById(R.id.AddEventEventName);
@@ -55,32 +69,11 @@ public class AddEventActivity extends Activity {
 	}
 
 	public void MemberList(){
-		String gdName="Database_"+grpid;
-		SQLiteDatabase groupDb=null;
-		int count=0;
-
-		String[] name = new String[5];
-
-		try{
-			groupDb = this.openOrCreateDatabase(gdName, MODE_PRIVATE, null);
-			Cursor mquery = groupDb.rawQuery("SELECT Name FROM " + MainActivity.MemberTable+";",null);
-
-			mquery.moveToFirst();
-			do{
-				name[count] = mquery.getString(0);
-				count++;
-			}while(mquery.moveToNext());
-
-
-		}catch(Exception e) {
-			Log.e("Error", "Error", e);
-		}
-		finally{ 
-			if(groupDb!=null)
-				groupDb.close();
-		}
-		for (int j=0; j<count; j++) {
-			list.add(name[j]);
+	
+		items = new CharSequence [namearray.length];
+		for (int j=0; j<namearray.length; j++) {
+			list.add(namearray[j]);
+			items[j] = namearray[j];
 		}		
 	}
 
@@ -132,6 +125,7 @@ public class AddEventActivity extends Activity {
 	}
 
 	public void addMember2(View v) {
+		tempCheckedItems = new boolean[namearray.length];
 		TableLayout tl = (TableLayout)findViewById(R.id.AddEventTableLayout2);
 		tl.setStretchAllColumns(true);
 		TableRow tr = new TableRow(this);
@@ -147,12 +141,19 @@ public class AddEventActivity extends Activity {
 				LayoutParams.WRAP_CONTENT));
 		tr.addView(et);
 
-		Spinner sp = new Spinner(this);
-		sp.setPadding(10, 0, 15, 0);
-		sp.setLayoutParams(new LayoutParams(
-				LayoutParams.WRAP_CONTENT));
-		addItemsOnSpinner(sp);
-		tr.addView(sp);
+		Button shareButton = new Button(this);
+		shareButton.setText("Share");
+		shareButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		shareButton.setOnClickListener(new OnClickListener() {
+		
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				showDialog(0);
+				
+			
+			}
+		});
+		tr.addView(shareButton);
 		tr.requestFocus();
 
 		tl.addView(tr,new TableLayout.LayoutParams(
@@ -160,6 +161,56 @@ public class AddEventActivity extends Activity {
 				LayoutParams.WRAP_CONTENT));	
 		addScroll2();
 	}
+	/*public Dialog popUpCheckBox() {
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Consumed By");
+		builder.setMultiChoiceItems(items, tempCheckedItems, new DialogInterface.OnMultiChoiceClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		AlertDialog alert = builder.create();
+	
+	}*/
+	 @Override
+	    protected Dialog onCreateDialog(int id) {
+	        switch (id) {
+	        case 0:
+	            return new AlertDialog.Builder(this)
+	            .setTitle("Dialog with simple text")
+	            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+	                public void onClick(DialogInterface dialog, int which) {
+	                    for (int i = 0; i < items.length; i++) {
+	                    if (tempCheckedItems[i]) {
+	                        Toast.makeText(getBaseContext(), items[i] + " checked!", Toast.LENGTH_LONG).show();
+	                    }
+	                }
+	                }
+	            })
+	            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+	                public void onClick(DialogInterface dialog, int which) {
+	                    Toast.makeText(getBaseContext(), "Cancel clicked!", Toast.LENGTH_LONG).show();
+	                }
+	            })
+	            .setMultiChoiceItems(items, tempCheckedItems, new DialogInterface.OnMultiChoiceClickListener() {
+
+	                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+	                    Toast.makeText(getBaseContext(), items[which] + (isChecked ? "checked!" : "unchecked!"), Toast.LENGTH_SHORT).show();
+	                }
+	            })
+	            .create();
+	        }
+
+	        return null;
+	    }
+
+
+	
 	private void addScroll2(){
 		new Handler().postDelayed(new Runnable() {            
 			public void run() {
